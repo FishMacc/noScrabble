@@ -5,4 +5,7 @@ public class Starter {
         System.out.println("Hallo noScrabble");
     }
 
+    public String getVersion() {
+        return "0.9";
+    }
 }
