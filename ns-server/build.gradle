@@ -1,0 +1,53 @@
+plugins {
+    id 'application'
+    id 'war'
+}
+
+sourceCompatibility = 1.21
+
+repositories {
+    mavenCentral()
+}
+
+
+dependencies {
+// https://mvnrepository.com/artifact/jakarta.servlet/jakarta.servlet-api
+    compileOnly 'jakarta.servlet:jakarta.servlet-api:6.0.0'
+    providedCompile 'javax.servlet:jsp-api:2.0'
+
+    implementation 'org.glassfish.jersey.media:jersey-media-multipart:3.1.0'
+    implementation 'org.glassfish.jersey.containers:jersey-container-servlet:3.1.0'
+    implementation 'org.glassfish.jersey.media:jersey-media-json-jackson:3.1.0'
+    implementation 'org.glassfish.jersey.media:jersey-media-jaxb:3.1.0'
+    implementation 'org.glassfish.jersey.inject:jersey-hk2:3.1.0'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
+// https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc
+    implementation 'org.xerial:sqlite-jdbc:3.45.1.0'
+
+    implementation 'javax.xml.bind:jaxb-api:2.3.1'
+    implementation 'org.glassfish.jaxb:jaxb-runtime:4.0.1'
+    implementation 'jakarta.activation:jakarta.activation-api:2.0.1'
+
+    implementation 'org.glassfish.jersey.core:jersey-client:2.25.1'
+    implementation 'org.glassfish.jersey.media:jersey-media-json-jackson:2.25.1'
+
+    testImplementation  'org.junit.jupiter:junit-jupiter-api:5.7.2'
+    testImplementation  'org.junit.jupiter:junit-jupiter-engine:5.7.2'
+    testImplementation 'jakarta.servlet:jakarta.servlet-api:6.0.0'
+
+}
+
+task deploy (type:Copy, dependsOn: build) {
+
+    from('build/libs'){
+        rename 'verbund-24-rs.war', 'rs.war'
+    }
+    into "${project.property('tomcat.home')}/webapps/"
+    println "kopiere rs.war nach ${project.property('tomcat.home')}/webapps/"
+}
+
+test {
+    useJUnitPlatform()
+}
+
+// gradlew deploy -x test
