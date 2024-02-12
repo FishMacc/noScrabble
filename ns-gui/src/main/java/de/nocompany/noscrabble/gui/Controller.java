@@ -42,14 +42,18 @@ public class Controller {
             Dragboard db = event.getDragboard();
             boolean success = false;
             if (db.hasString() && draggedLabel != null) {
-                int colIndex = (int) ((event.getX() - gridPane.getLayoutX()) / 100);
-                int rowIndex = (int) ((event.getY() - gridPane.getLayoutY()) / 30);
+                int colIndex = (int) ((event.getX() - gridPane.getLayoutX()) / 46);
+                int rowIndex = (int) ((event.getY() - gridPane.getLayoutY()) / 46);
+
+                System.out.println("colIndex: " + colIndex + ", rowIndex: " + rowIndex);
 
                 Label newLabel = new Label(db.getString());
+                newLabel.setMinSize(46, 46);
                 gridPane.add(newLabel, colIndex, rowIndex);
+                gridPane.getParent().requestLayout();
 
                 HBox parentBox = (HBox) draggedLabel.getParent();
-                parentBox.getChildren().remove(draggedLabel);
+                //parentBox.getChildren().remove(draggedLabel);
 
 
                 success = true;
