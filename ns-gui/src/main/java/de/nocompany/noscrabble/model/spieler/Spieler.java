@@ -3,7 +3,7 @@ package de.nocompany.noscrabble.model.spieler;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SpielerImpl{
+public class Spieler{
     private String name;
     private List<String> buchstabenRack = new ArrayList<>();
     private int punkte = 0;
