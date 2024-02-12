@@ -13,7 +13,7 @@ public class Spieler{
     private SpielsteinPool pool;
     Spieler(SpielsteinPool pool){
         this.pool = pool;
-        getBuchstaben();
+        fillRack();
     }
     public void setName(String name) {
         this.name=name;
@@ -51,7 +51,7 @@ public class Spieler{
         return turn;
     }
 
-    public void getBuchstaben() {
+    public void fillRack() {
         int steine = 7 - buchstabenRack.size();
         for (int i = 0; i < steine; i++) {
             buchstabenRack.add(pool.getBuchstabe());
