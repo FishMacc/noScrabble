@@ -79,4 +79,7 @@ public class SpielsteinPool {
     public void addBuchstabe(char buchstabe){
         buchstabenListe.add(buchstabe);
     }
+    public int getListenLaenge(){
+        return buchstabenListe.size();
+    }
 }
