@@ -2,39 +2,49 @@
 
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.nocompany.noscrabble.gui.StartseiteController">
+<AnchorPane maxHeight="1024.0" maxWidth="1024.0" minHeight="1024.0" minWidth="1024.0" prefHeight="1024.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.nocompany.noscrabble.gui.StartseiteController">
    <children>
-      <ImageView fx:id="iStartbild" fitHeight="612.0" fitWidth="621.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="iStartbild" fitHeight="1024.0" fitWidth="1024.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/Startbild.jpg" />
          </image></ImageView>
-      <VBox layoutX="-4.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="326.0" prefWidth="625.0">
+      <VBox layoutX="-4.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1024.0" prefWidth="1024.0">
          <children>
-            <HBox alignment="CENTER" prefHeight="45.0" prefWidth="589.0">
+            <Pane prefHeight="130.0" prefWidth="1024.0" />
+            <HBox alignment="CENTER" prefWidth="1024.0">
                <children>
-                  <Label fx:id="lVorhandeneSpieler" prefHeight="35.0" prefWidth="153.0" text="Vorhandene Spieler:">
+                  <Label fx:id="lVorhandeneSpieler" prefHeight="35.0" prefWidth="300.0" text="Vorhandene Spieler:" textFill="#a0e070">
                      <font>
-                        <Font size="14.0" />
+                        <Font name="Comic Sans MS Bold" size="24.0" />
                      </font>
+                     <effect>
+                        <DropShadow />
+                     </effect>
                   </Label>
-                  <ListView fx:id="lvVorhandeneSpieler" prefHeight="32.0" prefWidth="264.0" />
+                  <ListView fx:id="lvVorhandeneSpieler" prefHeight="35.0" prefWidth="300.0" />
                </children>
             </HBox>
+            <Pane prefHeight="50.0" prefWidth="1024.0" />
             <HBox alignment="CENTER" prefHeight="119.0" prefWidth="600.0">
                <children>
-                  <Label fx:id="lSpielerEingeben" prefHeight="35.0" prefWidth="153.0" text="Spielername eingeben:">
+                  <Label fx:id="lSpielerEingeben" prefHeight="35.0" prefWidth="300.0" text="Spielername eingeben:" textFill="#a0e070">
                      <font>
-                        <Font size="14.0" />
+                        <Font name="Comic Sans MS Bold" size="24.0" />
                      </font>
+                     <effect>
+                        <DropShadow />
+                     </effect>
                   </Label>
-                  <TextField fx:id="tfSpielername" alignment="CENTER" prefHeight="32.0" prefWidth="205.0" />
-                  <Button fx:id="bSpielerHinzufuegen" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#doAddSpieler" prefHeight="30.0" prefWidth="54.0" text="+" textAlignment="CENTER">
+                  <TextField fx:id="tfSpielername" alignment="CENTER" prefHeight="35.0" prefWidth="300.0" />
+                  <Pane prefHeight="119.0" prefWidth="59.0" />
+                  <Button fx:id="bSpielerHinzufuegen" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#doAddSpieler" prefHeight="35.0" prefWidth="50.0" text="+" textAlignment="CENTER">
                      <font>
-                        <Font size="14.0" />
+                        <Font name="Comic Sans MS" size="24.0" />
                      </font>
                      <HBox.margin>
                         <Insets />
@@ -45,11 +55,12 @@
                   </Button>
                </children>
             </HBox>
+            <Pane prefHeight="500.0" prefWidth="1024.0" />
             <HBox alignment="CENTER" prefHeight="66.0" prefWidth="534.0">
                <children>
-                  <Button fx:id="bSpielStarten" alignment="CENTER" defaultButton="true" mnemonicParsing="false" onAction="#doSpielStarten" prefHeight="41.0" prefWidth="145.0" text="Spiel starten">
+                  <Button fx:id="bSpielStarten" alignment="CENTER" mnemonicParsing="false" onAction="#doSpielStarten" prefHeight="90.0" prefWidth="245.0" text="Spiel starten">
                      <font>
-                        <Font size="18.0" />
+                        <Font name="Comic Sans MS" size="24.0" />
                      </font>
                   </Button>
                </children>
