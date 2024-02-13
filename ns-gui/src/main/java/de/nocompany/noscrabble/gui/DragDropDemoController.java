@@ -1,72 +1,77 @@
 package de.nocompany.noscrabble.gui;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.shape.Line;
-import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DragDropDemoController {
 
     @FXML
     private Pane drawingPane; // Das Pane, auf dem die Matrix gezeichnet wird
-    @FXML
-    private Rectangle draggableRectangle; // Das bewegliche Rechteck
+    private List<Pane> draggableObjects = new ArrayList<>(); // Liste der draggable Objekte
 
     private double xOffset = 0;
     private double yOffset = 0;
 
     @FXML
+    private Pane draggableA;
+    @FXML
+    private Pane draggableB;
+    @FXML
+    private Pane draggableC;
+
+    @FXML
     private void initialize() {
         drawMatrix();
-        setupDraggableRectangle();
+        setupDraggableObjects();
     }
 
     private void drawMatrix() {
-        int size = 46; // Größe jedes Feldes
-        int thickness = 2; // Dicke der Linien
-        int cells = 15; // Anzahl der Zellen in jeder Richtung
+        // ... (unverändert)
+    }
 
-        // Berechne die Gesamtgröße des Gitters
-        int totalSize = cells * size + (cells - 1) * thickness;
+    private void setupDraggableObjects() {
+        // Fügen Sie Ihre draggable Objekte zur Liste hinzu
+        draggableObjects.add(draggableA);
+        draggableObjects.add(draggableB);
+        draggableObjects.add(draggableC);
 
-        // Stellen Sie sicher, dass das drawingPane groß genug ist
-        drawingPane.setPrefSize(totalSize, totalSize);
-
-        // Zeichne die horizontalen und vertikalen Linien
-        for (int i = 0; i <= cells; i++) {
-            // Horizontale Linie
-            Line horizontalLine = new Line(0, i * (size + thickness), totalSize, i * (size + thickness));
-            horizontalLine.setStrokeWidth(thickness);
-
-            // Vertikale Linie
-            Line verticalLine = new Line(i * (size + thickness), 0, i * (size + thickness), totalSize);
-            verticalLine.setStrokeWidth(thickness);
-
-            drawingPane.getChildren().addAll(horizontalLine, verticalLine);
+        // Wenden Sie die Methode für jedes Objekt in der Liste an
+        for (Pane draggableObject : draggableObjects) {
+            setupDraggableObject(draggableObject);
         }
     }
 
-    private void setupDraggableRectangle() {
-        draggableRectangle.setOnMousePressed(event -> {
-            xOffset = event.getSceneX() - draggableRectangle.getX();
-            yOffset = event.getSceneY() - draggableRectangle.getY();
+    private void setupDraggableObject(Pane draggableObject) {
+        draggableObject.setOnMousePressed(event -> {
+            xOffset = event.getSceneX() - draggableObject.getLayoutX();
+            yOffset = event.getSceneY() - draggableObject.getLayoutY();
         });
 
-        draggableRectangle.setOnMouseDragged(event -> {
-            draggableRectangle.setX(event.getSceneX() - xOffset);
-            draggableRectangle.setY(event.getSceneY() - yOffset);
+        draggableObject.setOnMouseDragged(event -> {
+            draggableObject.setLayoutX(event.getSceneX() - xOffset);
+            draggableObject.setLayoutY(event.getSceneY() - yOffset);
         });
 
-        draggableRectangle.setOnMouseReleased(event -> {
+        draggableObject.setOnMouseReleased(event -> {
             // Größe jedes Feldes plus Dicke der Linien
-            int sizeWithLines = 46 + 2; // Hier nehmen wir an, dass die Dicke der Linie in die Größe der Zelle einbezogen wird
+            int sizeWithLines = 50 + 1; // Hier nehmen wir an, dass die Dicke der Linie in die Größe der Zelle einbezogen wird
             // Berechne die Mitte der nächsten Zelle
-            double newX = Math.round((draggableRectangle.getX()) / sizeWithLines) * sizeWithLines;
-            double newY = Math.round((draggableRectangle.getY()) / sizeWithLines) * sizeWithLines;
-            // Aktualisiere die Position des Rechtecks, um es in die Mitte der nächsten Zelle zu setzen
-            draggableRectangle.setX(newX + 4); // +1 für die Linienverschiebung
-            draggableRectangle.setY(newY + 4); // +1 für die Linienverschiebung
+            double newX = Math.round((draggableObject.getLayoutX()) / sizeWithLines) * sizeWithLines;
+            double newY = Math.round((draggableObject.getLayoutY()) / sizeWithLines) * sizeWithLines;
+            // Aktualisiere die Position des Objekts, um es in die Mitte der nächsten Zelle zu setzen
+            draggableObject.setLayoutX(newX + 3); // +1 für die Linienverschiebung
+            draggableObject.setLayoutY(newY + -5); // +1 für die Linienverschiebung
         });
     }
-
 }

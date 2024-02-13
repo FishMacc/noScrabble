@@ -5,27 +5,41 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 
 public class StarterApp extends Application {
 
+    public static void main(String[] args) {
+        launch(args);
+    }
+
     @Override
     public void start(Stage primaryStage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/hauptfenster.fxml"));
-        Parent root = loader.load();
-
-        Controller controller = loader.getController();
-
         Starter s = new Starter();
-        Scene scene = new Scene(root, 900, 900);
+        Label l = new Label("Hallo noScabble! "+s.getVersion());
+        HBox root = new HBox();
+        root.getChildren().add(l);
+        Scene scene = new Scene(root, 300, 400);
         primaryStage.setScene(scene);
         primaryStage.show();
+        showDragDropDemo();
     }
-
-    public static void main(String[] args) {
-        launch();
+    private void showDragDropDemo() {
+        try {
+            // Erstelle das Fenster für die Drag-and-Drop-Demo
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/DragDropDemo.fxml"));
+            Parent root = fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.setTitle("Drag-and-Drop-Demo");
+            stage.setScene(new Scene(root, 1000, 1000)); // Größe des Fensters entsprechend anpassen
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
-

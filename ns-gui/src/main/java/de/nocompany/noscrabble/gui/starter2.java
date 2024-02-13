@@ -31,7 +31,7 @@ public class starter2 extends Application {
     private void showDragDropDemo() {
         try {
             // Erstelle das Fenster für die Drag-and-Drop-Demo
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/noscrabble/DragDropDemo.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/DragDropDemo.fxml"));
             Parent root = fxmlLoader.load();
             Stage stage = new Stage();
             stage.setTitle("Drag-and-Drop-Demo");
