@@ -3,13 +3,10 @@ package de.nocompany.noscrabble.model.punktemultiplikator;
 import java.util.HashMap;
 import java.util.Map;
 
-public class punktemultiplikator {
-    private static final int NORMAL = 1;
-    private static final int DW = 20; // Doppelter Wortwert
-    private static final int TW = 30; // Dreifacher Wortwert
-    private static final int DL = 2; // Doppelter Buchstabenwert
-    private static final int TL = 3; // Dreifacher Buchstabenwert
-    private static final int[][] punkteMultiplikatoren = {
+import static de.nocompany.noscrabble.model.punktemultiplikator.Multiplikator.*;
+
+public class Punktemultiplikator {
+    private static final Multiplikator[][] punkteMultiplikatoren = {
             // A     B     C     D     E     F     G     H     I     J     K     L     M     N     O
             {TW, NORMAL, NORMAL, DL, NORMAL, NORMAL, NORMAL, TW, NORMAL, NORMAL, NORMAL, DL, NORMAL, NORMAL, TW},
             {NORMAL, DW, NORMAL, NORMAL, NORMAL, TL, NORMAL, NORMAL, NORMAL, TL, NORMAL, NORMAL, NORMAL, DW, NORMAL},
@@ -18,7 +15,7 @@ public class punktemultiplikator {
             {NORMAL, NORMAL, NORMAL, NORMAL, DW, NORMAL, NORMAL, NORMAL, NORMAL, NORMAL, DW, NORMAL, NORMAL, NORMAL, NORMAL},
             {NORMAL, TL, NORMAL, NORMAL, NORMAL, TL, NORMAL, NORMAL, NORMAL, TL, NORMAL, NORMAL, NORMAL, TL, NORMAL},
             {NORMAL, NORMAL, DL, NORMAL, NORMAL, NORMAL, DL, NORMAL, DL, NORMAL, NORMAL, NORMAL, DL, NORMAL, NORMAL},
-            {TW, NORMAL, NORMAL, DL, NORMAL, NORMAL, NORMAL, DW, NORMAL, NORMAL, NORMAL, DL, NORMAL, NORMAL, TW},
+            {TW, NORMAL, NORMAL, DL, NORMAL, NORMAL, NORMAL, NORMAL, NORMAL, NORMAL, NORMAL, DL, NORMAL, NORMAL, TW},
             {NORMAL, NORMAL, DL, NORMAL, NORMAL, NORMAL, DL, NORMAL, DL, NORMAL, NORMAL, NORMAL, DL, NORMAL, NORMAL},
             {NORMAL, TL, NORMAL, NORMAL, NORMAL, TL, NORMAL, NORMAL, NORMAL, TL, NORMAL, NORMAL, NORMAL, TL, NORMAL},
             {NORMAL, NORMAL, NORMAL, NORMAL, DW, NORMAL, NORMAL, NORMAL, NORMAL, NORMAL, DW, NORMAL, NORMAL, NORMAL, NORMAL},
@@ -28,7 +25,7 @@ public class punktemultiplikator {
             {TW, NORMAL, NORMAL, DL, NORMAL, NORMAL, NORMAL, TW, NORMAL, NORMAL, NORMAL, DL, NORMAL, NORMAL, TW}
     };
 
-    private static int calcLetterPunkte(Character letter) {
+    public int calcLetterPunkte(Character letter) {
         Map<Character, Integer> buchstabenPunkte = new HashMap<>();
         buchstabenPunkte.put('E', 1);
         buchstabenPunkte.put('N', 1);
@@ -61,21 +58,6 @@ public class punktemultiplikator {
         buchstabenPunkte.put('Y', 10);
         return buchstabenPunkte.getOrDefault(letter, 0);
     }
-
-    private  int calcMultiplikator(int x, int y) {
-        if (x < 0 || x >= punkteMultiplikatoren[0].length || y < 0 || y >= punkteMultiplikatoren.length) {
-            throw new IllegalArgumentException("Ungültige Koordinaten!");
-        }
-        return punkteMultiplikatoren[y][x];
-    }
-
-
-    public  int calcGesPunkte(int x, int y, Character letter) {
-        int buchstabenPunkte = calcLetterPunkte(letter);
-        int multiplikator = calcMultiplikator(x, y);
-
-        return buchstabenPunkte;
-    }
     public  int calcWortPunkte(String wort, int startx, int starty, boolean horizontal) {
         wort = wort.toUpperCase();
         int gesamtPunkte = 0;
@@ -86,16 +68,16 @@ public class punktemultiplikator {
             int y = horizontal ? starty : starty + i;
 
             char letter = wort.charAt(i);
-            int buchstabenPunkte = calcGesPunkte(x, y, letter);
+            int buchstabenPunkte = calcLetterPunkte(letter);
 
-            int multiplikator = calcMultiplikator(x, y);
+            Multiplikator multiplikator = punkteMultiplikatoren[y][x];
             punkteMultiplikatoren[y][x]=NORMAL;
 
-            if (multiplikator == DW || multiplikator == TW) {
-                wortMultiplikator *= multiplikator/10;
+            if (multiplikator == Multiplikator.DW || multiplikator == TW) {
+                wortMultiplikator *= multiplikator.getWert();
                 gesamtPunkte += buchstabenPunkte;
             } else {
-                gesamtPunkte += buchstabenPunkte * multiplikator;
+                gesamtPunkte += buchstabenPunkte*multiplikator.getWert();
             }
         }
         gesamtPunkte *= wortMultiplikator;
