@@ -1,15 +1,8 @@
 package de.nocompany.noscrabble.gui;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.shape.Line;
 import javafx.scene.layout.Pane;
-import javafx.scene.text.Font;
-
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,8 +10,11 @@ import java.util.List;
 public class DragDropDemoController {
 
     @FXML
-    private Pane drawingPane; // Das Pane, auf dem die Matrix gezeichnet wird
+    private Pane drawingPane;
+    @FXML
+    private Pane spielersteine;
     private List<Pane> draggableObjects = new ArrayList<>(); // Liste der draggable Objekte
+
 
     private double xOffset = 0;
     private double yOffset = 0;
@@ -45,9 +41,54 @@ public class DragDropDemoController {
         setupDraggableObjects();
     }
 
-    private void drawMatrix() {
-        // ... (unverändert)
+    private int convertToGameCoordinate(double pixelCoordinate) {
+        int sizeWithLines = 50 + 1; // Größe jedes Feldes plus Dicke der Linien
+
+        // Runde die Pixelkoordinate zur nächsten Zelle
+        double roundedCoordinate = Math.round(pixelCoordinate / sizeWithLines);
+
+        // Subtrahiere 1, um von 1-basierten zu 0-basierten Koordinaten zu wechseln
+        int gameCoordinate = (int) roundedCoordinate - 1;
+
+        return gameCoordinate;
     }
+
+    private void printGameCoordinates(Pane draggableObject) {
+        double xPosition = draggableObject.getLayoutX();
+        double yPosition = draggableObject.getLayoutY();
+
+        int gameX = convertToGameCoordinate(xPosition);
+        int gameY = convertToGameCoordinate(yPosition);
+
+        System.out.println("Position von " + draggableObject + "- X: " + gameX + ", Y: " + gameY);
+    }
+
+
+    private void drawMatrix() {
+        int size = 50; // Größe jedes Feldes
+        int thickness = 1; // Dicke der Linien
+        int cells = 15; // Anzahl der Zellen in jeder Richtung
+
+        // Berechne die Gesamtgröße des Gitters
+        int totalSize = cells * size + (cells - 1) * thickness;
+
+        // Stellen Sie sicher, dass das drawingPane groß genug ist
+        drawingPane.setPrefSize(totalSize, totalSize);
+
+        // Zeichne die horizontalen und vertikalen Linien
+        for (int i = 0; i <= cells; i++) {
+            // Horizontale Linie
+            Line horizontalLine = new Line(0, i * (size + thickness), totalSize, i * (size + thickness));
+            horizontalLine.setStrokeWidth(thickness);
+
+            // Vertikale Linie
+            Line verticalLine = new Line(i * (size + thickness), 0, i * (size + thickness), totalSize);
+            verticalLine.setStrokeWidth(thickness);
+
+            drawingPane.getChildren().addAll(horizontalLine, verticalLine);
+        }
+    }
+
 
     private void setupDraggableObjects() {
         // Fügen Sie Ihre draggable Objekte zur Liste hinzu
@@ -84,7 +125,16 @@ public class DragDropDemoController {
             double newY = Math.round((draggableObject.getLayoutY()) / sizeWithLines) * sizeWithLines;
             // Aktualisiere die Position des Objekts, um es in die Mitte der nächsten Zelle zu setzen
             draggableObject.setLayoutX(newX + 2); // +1 für die Linienverschiebung
-            draggableObject.setLayoutY(newY + -17); // +1 für die Linienverschiebung
+            draggableObject.setLayoutY(newY + -18); // +1 für die Linienverschiebung
+
+
+            double xPosition = draggableObject.getLayoutX();
+            double yPosition = draggableObject.getLayoutY();
+            printGameCoordinates(draggableObject);
+            System.out.println("Position von " +draggableObject + "- X: " + xPosition + ", Y: " + yPosition);
         });
+
+
     }
+
 }

@@ -5,35 +5,24 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.nocompany.noscrabble.gui.DragDropDemoController">
+<AnchorPane maxHeight="1027.0" maxWidth="1300.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1024.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.nocompany.noscrabble.gui.DragDropDemoController">
     <children>
-        <MenuBar prefHeight="25.0" prefWidth="1000.0">
-            <menus>
-                <Menu mnemonicParsing="false" text="File">
-                    <items>
-                        <MenuItem mnemonicParsing="false" text="Close" />
-                    </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Edit">
-                    <items>
-                        <MenuItem mnemonicParsing="false" text="Delete" />
-                    </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Help">
-                    <items>
-                        <MenuItem mnemonicParsing="false" text="About" />
-                    </items>
-                </Menu>
-            </menus>
-        </MenuBar>
-        <Pane fx:id="drawingPane" layoutX="101.0" layoutY="81.0" prefHeight="766.0" prefWidth="766.0">
+      <Pane fx:id="spielersteine" layoutX="306.0" layoutY="907.0" prefHeight="52.0" prefWidth="357.0">
+         <children>
+            <ImageView fitHeight="52.0" fitWidth="357.0" layoutY="-12.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/Steine.png" />
+               </image>
+            </ImageView>
+         </children></Pane>
+        <Pane fx:id="drawingPane" layoutX="100.0" layoutY="80.0" prefHeight="766.0" prefWidth="766.0">
          <children>
             <ImageView fitHeight="836.0" fitWidth="845.0" layoutX="-35.0" layoutY="-35.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../img/spielfeld.png" />
                </image></ImageView>
          </children></Pane>
-      <Pane fx:id="stein1" layoutX="311.0" layoutY="910.0" prefHeight="45.0" prefWidth="45.0">
+      <Pane fx:id="stein1" layoutX="308.0" layoutY="900.0" prefHeight="45.0" prefWidth="45.0">
          <children>
             <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -48,7 +37,7 @@
             <Label layoutX="31.0" layoutY="23.0" prefHeight="17.0" prefWidth="13.0" text="1" />
          </children>
       </Pane>
-        <Pane fx:id="stein2" layoutX="311.0" layoutY="910.0" prefHeight="45.0" prefWidth="45.0">
+        <Pane fx:id="stein2" layoutX="359.0" layoutY="900.0" prefHeight="45.0" prefWidth="45.0">
             <children>
                 <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
                     <image>
@@ -63,7 +52,7 @@
                 <Label layoutX="31.0" layoutY="23.0" prefHeight="17.0" prefWidth="13.0" text="1" />
             </children>
         </Pane>
-        <Pane fx:id="stein3" layoutX="311.0" layoutY="910.0" prefHeight="45.0" prefWidth="45.0">
+        <Pane fx:id="stein3" layoutX="410.0" layoutY="900.0" prefHeight="45.0" prefWidth="45.0">
             <children>
                 <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
                     <image>
@@ -78,7 +67,7 @@
                 <Label layoutX="31.0" layoutY="23.0" prefHeight="17.0" prefWidth="13.0" text="1" />
             </children>
         </Pane>
-        <Pane fx:id="stein4" layoutX="311.0" layoutY="910.0" prefHeight="45.0" prefWidth="45.0">
+        <Pane fx:id="stein4" layoutX="461.0" layoutY="900.0" prefHeight="45.0" prefWidth="45.0">
             <children>
                 <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
                     <image>
@@ -93,7 +82,7 @@
                 <Label layoutX="31.0" layoutY="23.0" prefHeight="17.0" prefWidth="13.0" text="1" />
             </children>
         </Pane>
-        <Pane fx:id="stein5" layoutX="311.0" layoutY="910.0" prefHeight="45.0" prefWidth="45.0">
+        <Pane fx:id="stein5" layoutX="512.0" layoutY="900.0" prefHeight="45.0" prefWidth="45.0">
             <children>
                 <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
                     <image>
@@ -108,7 +97,7 @@
                 <Label layoutX="31.0" layoutY="23.0" prefHeight="17.0" prefWidth="13.0" text="1" />
             </children>
         </Pane>
-        <Pane fx:id="stein6" layoutX="311.0" layoutY="910.0" prefHeight="45.0" prefWidth="45.0">
+        <Pane fx:id="stein6" layoutX="563.0" layoutY="900.0" prefHeight="45.0" prefWidth="45.0">
             <children>
                 <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
                     <image>
@@ -123,7 +112,7 @@
                 <Label layoutX="31.0" layoutY="23.0" prefHeight="17.0" prefWidth="13.0" text="1" />
             </children>
         </Pane>
-        <Pane fx:id="stein7" layoutX="311.0" layoutY="910.0" prefHeight="45.0" prefWidth="45.0">
+        <Pane fx:id="stein7" layoutX="614.0" layoutY="900.0" prefHeight="45.0" prefWidth="45.0">
             <children>
                 <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
                     <image>
