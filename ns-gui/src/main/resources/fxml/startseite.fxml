@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.nocompany.noscrabble.gui.StartseiteController">
+   <children>
+      <ImageView fx:id="iStartbild" fitHeight="304.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true" />
+      <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="304.0" prefWidth="600.0">
+         <children>
+            <MenuBar prefHeight="24.0" prefWidth="600.0">
+              <menus>
+                <Menu mnemonicParsing="false" text="Spiel">
+                  <items>
+                        <MenuItem mnemonicParsing="false" text="Neues Spiel" />
+                    <MenuItem mnemonicParsing="false" text="Spiel beenden" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Hilfe">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Spielregeln" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
+            <HBox alignment="CENTER" prefHeight="45.0" prefWidth="589.0">
+               <children>
+                  <Label fx:id="lSpielerEingeben1" prefHeight="35.0" prefWidth="153.0" text="Vorhandene Spieler:">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <ListView prefHeight="50.0" prefWidth="264.0" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="119.0" prefWidth="600.0">
+               <children>
+                  <Label fx:id="lSpielerEingeben" prefHeight="35.0" prefWidth="153.0" text="Spielername eingeben:">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="tfSpielername" alignment="CENTER" prefHeight="32.0" prefWidth="205.0" />
+                  <Button fx:id="bSpielerHinzufuegen" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#doAddSpieler" prefHeight="30.0" prefWidth="54.0" text="+" textAlignment="CENTER">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </Button>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="66.0" prefWidth="600.0">
+               <children>
+                  <Button fx:id="bSpielStarten" alignment="CENTER" defaultButton="true" mnemonicParsing="false" onAction="#doSpielStarten" prefHeight="41.0" prefWidth="145.0" text="Spiel starten">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
