@@ -18,3 +18,7 @@ dependencies {
     testImplementation  'org.junit.jupiter:junit-jupiter-engine:5.7.2'
     testImplementation 'jakarta.servlet:jakarta.servlet-api:6.0.0'
 }
+
+test {
+    useJUnitPlatform()
+}
