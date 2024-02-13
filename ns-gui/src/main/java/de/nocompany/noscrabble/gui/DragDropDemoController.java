@@ -24,11 +24,20 @@ public class DragDropDemoController {
     private double yOffset = 0;
 
     @FXML
-    private Pane draggableA;
+    private Pane stein1;
     @FXML
-    private Pane draggableB;
+    private Pane stein2;
     @FXML
-    private Pane draggableC;
+    private Pane stein3;
+    @FXML
+    private Pane stein4;
+    @FXML
+    private Pane stein5;
+    @FXML
+    private Pane stein6;
+    @FXML
+    private Pane stein7;
+
 
     @FXML
     private void initialize() {
@@ -42,9 +51,13 @@ public class DragDropDemoController {
 
     private void setupDraggableObjects() {
         // Fügen Sie Ihre draggable Objekte zur Liste hinzu
-        draggableObjects.add(draggableA);
-        draggableObjects.add(draggableB);
-        draggableObjects.add(draggableC);
+        draggableObjects.add(stein1);
+        draggableObjects.add(stein2);
+        draggableObjects.add(stein3);
+        draggableObjects.add(stein4);
+        draggableObjects.add(stein5);
+        draggableObjects.add(stein6);
+        draggableObjects.add(stein7);
 
         // Wenden Sie die Methode für jedes Objekt in der Liste an
         for (Pane draggableObject : draggableObjects) {
@@ -70,8 +83,8 @@ public class DragDropDemoController {
             double newX = Math.round((draggableObject.getLayoutX()) / sizeWithLines) * sizeWithLines;
             double newY = Math.round((draggableObject.getLayoutY()) / sizeWithLines) * sizeWithLines;
             // Aktualisiere die Position des Objekts, um es in die Mitte der nächsten Zelle zu setzen
-            draggableObject.setLayoutX(newX + 3); // +1 für die Linienverschiebung
-            draggableObject.setLayoutY(newY + -5); // +1 für die Linienverschiebung
+            draggableObject.setLayoutX(newX + 2); // +1 für die Linienverschiebung
+            draggableObject.setLayoutY(newY + -17); // +1 für die Linienverschiebung
         });
     }
 }
