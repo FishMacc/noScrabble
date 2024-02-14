@@ -2,23 +2,23 @@ package de.nocompany.noscrabble.gui;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
-import javafx.scene.control.ContentDisplay;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.Tooltip;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.control.TextField;
 
-import java.awt.*;
-import java.awt.image.ImageObserver;
-import java.awt.image.ImageProducer;
-import java.net.URL;
-
-public class StartseiteController {
+public class SpielerEingabeController {
     @FXML
     public Label lStartbild;
+    public Label lVorhandeneSpieler;
+    public Label lSpieler1;
+    public Label lSpieler2;
+    public Label lSpieler3;
+    public Label lSpieler4;
+    public TextField tfSpielername;
+    public Button bSpielerHinzufuegen;
+    public Button bSpielStarten;
 
-    @FXML
+    /*@FXML
     private Node getImage(){
         Label lStartbild = new Label("Mit Startbild");
         URL startBild = getClass().getClassLoader().getResource("images/Startbild.jpg");
@@ -27,7 +27,8 @@ public class StartseiteController {
         lStartbild.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
         lStartbild.setTooltip(new Tooltip("Startbild"));
         }
-
+        
+     */
 
 
     public void doAddSpieler(ActionEvent actionEvent) {
