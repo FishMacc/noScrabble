@@ -6,32 +6,49 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class SpielerEingabeController {
+
     @FXML
-    public Label lStartbild;
-    public Label lVorhandeneSpieler;
-    public Label lSpieler1;
-    public Label lSpieler2;
-    public Label lSpieler3;
-    public Label lSpieler4;
-    public TextField tfSpielername;
-    public Button bSpielerHinzufuegen;
-    public Button bSpielStarten;
+    private Label lVorhandeneSpieler;
+    @FXML
+    private Label lSpieler1;
+    @FXML
+    private Label lSpieler2;
+    @FXML
+    private Label lSpieler3;
+    @FXML
+    private Label lSpieler4;
+    @FXML
+    private TextField tfSpielername;
+    @FXML
+    private List<String> spielerListe = new ArrayList<>();
 
-    /*@FXML
-    private Node getImage(){
-        Label lStartbild = new Label("Mit Startbild");
-        URL startBild = getClass().getClassLoader().getResource("images/Startbild.jpg");
 
-        lStartbild.setGraphic(new ImageView(startBild));
-        lStartbild.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
-        lStartbild.setTooltip(new Tooltip("Startbild"));
+    @FXML
+    void initialize() {
+
+        spielerListe.add(lSpieler1.getText());
+        spielerListe.add(lSpieler2.getText());
+        spielerListe.add(lSpieler3.getText());
+        spielerListe.add(lSpieler4.getText());
+        Button bSpielerHinzufuegen = new Button();
+        bSpielerHinzufuegen.setOnAction(e -> doAddSpieler());
+
+    }
+
+
+    public void doAddSpieler() {
+        for (String spielerName : spielerListe) {
+            if (spielerName.isEmpty()) {
+                spielerName = tfSpielername.getText();
+                break;
+            }
         }
-        
-     */
 
 
-    public void doAddSpieler(ActionEvent actionEvent) {
     }
 
     public void doSpielStarten(ActionEvent actionEvent) {
