@@ -4,127 +4,169 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-
-<AnchorPane maxHeight="1027.0" maxWidth="1300.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1024.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.nocompany.noscrabble.gui.DragDropDemoController">
+<AnchorPane maxHeight="1027.0" maxWidth="1300.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1024.0"
+            prefWidth="1300.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="de.nocompany.noscrabble.gui.DragDropDemoController">
     <children>
-      <Pane fx:id="spielersteine" layoutX="306.0" layoutY="907.0" prefHeight="52.0" prefWidth="357.0">
-         <children>
-            <ImageView fitHeight="52.0" fitWidth="357.0" layoutY="-12.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../img/Steine.png" />
-               </image>
-            </ImageView>
-         </children></Pane>
+        <ImageView fitHeight="1233.0" fitWidth="1618.0" layoutX="-275.0" layoutY="-131.0" pickOnBounds="true"
+                   preserveRatio="true">
+            <image>
+                <Image url="@../img/Background.jpg"/>
+            </image>
+        </ImageView>
+        <Pane fx:id="spielersteine" layoutX="239.0" layoutY="886.0" prefHeight="74.0" prefWidth="489.0">
+            <children>
+                <ImageView fitHeight="84.0" fitWidth="472.0" layoutX="9.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../img/Steine2.png"/>
+                    </image>
+                </ImageView>
+            </children>
+        </Pane>
         <Pane fx:id="drawingPane" layoutX="100.0" layoutY="80.0" prefHeight="766.0" prefWidth="766.0">
-         <children>
-            <ImageView fitHeight="836.0" fitWidth="845.0" layoutX="-35.0" layoutY="-35.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../img/spielfeld.png" />
-               </image></ImageView>
-         </children></Pane>
-      <Pane fx:id="stein1" layoutX="308.0" layoutY="900.0" prefHeight="45.0" prefWidth="45.0">
-         <children>
-            <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../img/Stein.png" />
-               </image>
-            </ImageView>
-            <Label layoutX="6.0" prefHeight="45.0" prefWidth="21.0" text="A" textAlignment="CENTER">
-               <font>
-                  <Font name="System Bold" size="27.0" />
-               </font>
-            </Label>
-            <Label layoutX="31.0" layoutY="23.0" prefHeight="17.0" prefWidth="13.0" text="1" />
-         </children>
-      </Pane>
+            <children>
+                <ImageView fitHeight="836.0" fitWidth="845.0" layoutX="-35.0" layoutY="-35.0" pickOnBounds="true"
+                           preserveRatio="true">
+                    <image>
+                        <Image url="@../img/spielfeld.png"/>
+                    </image>
+                </ImageView>
+            </children>
+        </Pane>
+        <Pane fx:id="stein1" layoutX="308.0" layoutY="900.0" prefHeight="45.0" prefWidth="45.0">
+            <children>
+                <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../img/Stein.png"/>
+                    </image>
+                </ImageView>
+                <Label layoutX="6.0" prefHeight="45.0" prefWidth="21.0" text="A" textAlignment="CENTER">
+                    <font>
+                        <Font name="System Bold" size="27.0"/>
+                    </font>
+                </Label>
+                <Label layoutX="31.0" layoutY="23.0" prefHeight="17.0" prefWidth="13.0" text="1"/>
+            </children>
+        </Pane>
         <Pane fx:id="stein2" layoutX="359.0" layoutY="900.0" prefHeight="45.0" prefWidth="45.0">
             <children>
                 <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../img/Stein.png" />
+                        <Image url="@../img/Stein.png"/>
                     </image>
                 </ImageView>
                 <Label layoutX="6.0" prefHeight="45.0" prefWidth="21.0" text="B" textAlignment="CENTER">
                     <font>
-                        <Font name="System Bold" size="27.0" />
+                        <Font name="System Bold" size="27.0"/>
                     </font>
                 </Label>
-                <Label layoutX="31.0" layoutY="23.0" prefHeight="17.0" prefWidth="13.0" text="1" />
+                <Label layoutX="31.0" layoutY="23.0" prefHeight="17.0" prefWidth="13.0" text="1"/>
             </children>
         </Pane>
         <Pane fx:id="stein3" layoutX="410.0" layoutY="900.0" prefHeight="45.0" prefWidth="45.0">
             <children>
                 <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../img/Stein.png" />
+                        <Image url="@../img/Stein.png"/>
                     </image>
                 </ImageView>
                 <Label layoutX="6.0" prefHeight="45.0" prefWidth="21.0" text="C" textAlignment="CENTER">
                     <font>
-                        <Font name="System Bold" size="27.0" />
+                        <Font name="System Bold" size="27.0"/>
                     </font>
                 </Label>
-                <Label layoutX="31.0" layoutY="23.0" prefHeight="17.0" prefWidth="13.0" text="1" />
+                <Label layoutX="31.0" layoutY="23.0" prefHeight="17.0" prefWidth="13.0" text="1"/>
             </children>
         </Pane>
         <Pane fx:id="stein4" layoutX="461.0" layoutY="900.0" prefHeight="45.0" prefWidth="45.0">
             <children>
                 <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../img/Stein.png" />
+                        <Image url="@../img/Stein.png"/>
                     </image>
                 </ImageView>
                 <Label layoutX="6.0" prefHeight="45.0" prefWidth="21.0" text="C" textAlignment="CENTER">
                     <font>
-                        <Font name="System Bold" size="27.0" />
+                        <Font name="System Bold" size="27.0"/>
                     </font>
                 </Label>
-                <Label layoutX="31.0" layoutY="23.0" prefHeight="17.0" prefWidth="13.0" text="1" />
+                <Label layoutX="31.0" layoutY="23.0" prefHeight="17.0" prefWidth="13.0" text="1"/>
             </children>
         </Pane>
         <Pane fx:id="stein5" layoutX="512.0" layoutY="900.0" prefHeight="45.0" prefWidth="45.0">
             <children>
                 <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../img/Stein.png" />
+                        <Image url="@../img/Stein.png"/>
                     </image>
                 </ImageView>
                 <Label layoutX="6.0" prefHeight="45.0" prefWidth="21.0" text="C" textAlignment="CENTER">
                     <font>
-                        <Font name="System Bold" size="27.0" />
+                        <Font name="System Bold" size="27.0"/>
                     </font>
                 </Label>
-                <Label layoutX="31.0" layoutY="23.0" prefHeight="17.0" prefWidth="13.0" text="1" />
+                <Label layoutX="31.0" layoutY="23.0" prefHeight="17.0" prefWidth="13.0" text="1"/>
             </children>
         </Pane>
         <Pane fx:id="stein6" layoutX="563.0" layoutY="900.0" prefHeight="45.0" prefWidth="45.0">
             <children>
                 <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../img/Stein.png" />
+                        <Image url="@../img/Stein.png"/>
                     </image>
                 </ImageView>
                 <Label layoutX="6.0" prefHeight="45.0" prefWidth="21.0" text="C" textAlignment="CENTER">
                     <font>
-                        <Font name="System Bold" size="27.0" />
+                        <Font name="System Bold" size="27.0"/>
                     </font>
                 </Label>
-                <Label layoutX="31.0" layoutY="23.0" prefHeight="17.0" prefWidth="13.0" text="1" />
+                <Label layoutX="31.0" layoutY="23.0" prefHeight="17.0" prefWidth="13.0" text="1"/>
             </children>
         </Pane>
         <Pane fx:id="stein7" layoutX="614.0" layoutY="900.0" prefHeight="45.0" prefWidth="45.0">
             <children>
                 <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../img/Stein.png" />
+                        <Image url="@../img/Stein.png"/>
                     </image>
                 </ImageView>
                 <Label layoutX="6.0" prefHeight="45.0" prefWidth="21.0" text="C" textAlignment="CENTER">
                     <font>
-                        <Font name="System Bold" size="27.0" />
+                        <Font name="System Bold" size="27.0"/>
                     </font>
                 </Label>
-                <Label layoutX="31.0" layoutY="23.0" prefHeight="17.0" prefWidth="13.0" text="1" />
+                <Label layoutX="31.0" layoutY="23.0" prefHeight="17.0" prefWidth="13.0" text="1"/>
+            </children>
+        </Pane>
+        <Pane layoutX="737.0" layoutY="901.0" prefHeight="45.0" prefWidth="138.0">
+            <children>
+                <ImageView fitHeight="45.0" fitWidth="138.0" layoutY="1.0" nodeOrientation="RIGHT_TO_LEFT"
+                           pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../img/Knopf.png"/>
+                    </image>
+                </ImageView>
+                <Button alignment="CENTER" mnemonicParsing="false" prefHeight="45.0" prefWidth="138.0"
+                        style="-fx-background-color: transparent;" text="Auswerten">
+                    <font>
+                        <Font name="System Bold" size="17.0"/>
+                    </font>
+                </Button>
+            </children>
+        </Pane>
+        <Pane layoutX="92.0" layoutY="900.0" prefHeight="45.0" prefWidth="138.0">
+            <children>
+                <ImageView fitHeight="45.0" fitWidth="138.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../img/Knopf.png"/>
+                    </image>
+                </ImageView>
+                <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="138.0"
+                        style="-fx-background-color: transparent;" text="Neuer Stein">
+                    <font>
+                        <Font name="System Bold" size="17.0"/>
+                    </font>
+                </Button>
             </children>
         </Pane>
     </children>
