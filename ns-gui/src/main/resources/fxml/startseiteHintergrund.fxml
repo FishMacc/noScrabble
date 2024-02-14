@@ -5,13 +5,10 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<AnchorPane maxHeight="1024.0" maxWidth="1024.0" minHeight="1024.0" minWidth="1024.0" prefHeight="1024.0"
+<BorderPane maxHeight="1024.0" maxWidth="1024.0" minHeight="1024.0" minWidth="1024.0" prefHeight="1024.0"
             prefWidth="1024.0"
             xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="de.nocompany.noscrabble.gui.StartseiteHintergrundController">
-    <children>
-        <BorderPane maxHeight="1024.0" maxWidth="1024.0" minHeight="1024.0" minWidth="1024.0" prefHeight="1024.0"
-                    prefWidth="1024.0">
             <center>
                 <ImageView fx:id="iStartbild" fitHeight="1024.0" fitWidth="1024.0" pickOnBounds="true"
                            preserveRatio="true" BorderPane.alignment="CENTER">
@@ -40,6 +37,5 @@
                     </menus>
                 </MenuBar>
             </top>
-        </BorderPane>
-    </children>
-</AnchorPane>
+
+</BorderPane>
