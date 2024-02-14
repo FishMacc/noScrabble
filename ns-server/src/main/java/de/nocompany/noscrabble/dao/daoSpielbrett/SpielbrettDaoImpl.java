@@ -1,25 +1,11 @@
-package de.nocompany.noscrabble.dao;
+package de.nocompany.noscrabble.dao.daoSpielbrett;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
-public class DaoImpl implements Dao {
-    private static final String DATEINAME = "spielbrett.txt";
-
-    public static boolean checkWord(String wort) {
-        HashSet<String> dictionary = new HashSet<>();
-        try (BufferedReader br = new BufferedReader(new FileReader("ns-gui/src/main/resources/dictionary/deu_woerter_raw.txt"))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                dictionary.add(line.trim().toLowerCase());
-            }
-        } catch (IOException e) {
-            System.err.println("Fehler beim Lesen der Datei: " + e.getMessage());
-        }
-        return dictionary.contains(wort.toLowerCase());
-    }
+public class SpielbrettDaoImpl implements SpielbrettDaoInterface {
+    public static final String DATEINAME = "spielbrett.txt";
 
     @Override
     public void saveSpielbrett(Character[][] spielbrett) {
