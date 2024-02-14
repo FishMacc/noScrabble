@@ -21,8 +21,9 @@ public class DragDropDemoController {
     @FXML
     private Button auswertenButton;
     @FXML
+    private Button neuButton;
+    @FXML
     private Text auswertungsText;
-
 
     private double xOffset = 0;
     private double yOffset = 0;
@@ -41,7 +42,6 @@ public class DragDropDemoController {
     private Pane stein6;
     @FXML
     private Pane stein7;
-
 
     @FXML
     private void initialize() {
@@ -71,6 +71,36 @@ public class DragDropDemoController {
         System.out.println("Position von " + draggableObject + "- X: " + gameX + ", Y: " + gameY);
     }
 
+    private boolean isCellOccupied(double x, double y, Pane currentStone) {
+        // Größe jedes Feldes plus Dicke der Linien
+        int sizeWithLines = 50 + 1;
+
+        // Berechne die Mitte der nächsten Zelle
+        double newX = Math.round(x / sizeWithLines) * sizeWithLines;
+        double newY = Math.round(y / sizeWithLines) * sizeWithLines;
+
+        for (Pane draggableObject : draggableObjects) {
+            if (draggableObject != currentStone) {
+                double objX = draggableObject.getLayoutX();
+                double objY = draggableObject.getLayoutY();
+
+                // Berechne die Mitte des anderen Steins
+                double otherX = Math.round(objX / sizeWithLines) * sizeWithLines;
+                double otherY = Math.round(objY / sizeWithLines) * sizeWithLines;
+
+                // Überprüfe, ob sich die Mittelpunkte der Steine auf demselben Feld befinden
+                if (newX == otherX && newY == otherY) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private void resetStonePosition(Pane draggableObject, double originalX, double originalY) {
+        draggableObject.setLayoutX(originalX);
+        draggableObject.setLayoutY(originalY);
+    }
 
     private void drawMatrix() {
         int size = 50; // Größe jedes Feldes
@@ -97,7 +127,6 @@ public class DragDropDemoController {
         }
     }
 
-
     private void setupDraggableObjects() {
         // Fügen Sie Ihre draggable Objekte zur Liste hinzu
         draggableObjects.add(stein1);
@@ -115,7 +144,6 @@ public class DragDropDemoController {
     }
 
     private void setupDraggableObject(Pane draggableObject) {
-
         draggableObject.setOnMousePressed(event -> {
             xOffset = event.getSceneX() - draggableObject.getLayoutX();
             yOffset = event.getSceneY() - draggableObject.getLayoutY();
@@ -126,37 +154,37 @@ public class DragDropDemoController {
             double newY = event.getSceneY() - yOffset;
 
             // Überprüfe, ob sich der Spielstein innerhalb der zulässigen Bereiche befindet
-            if (isWithinBounds(newX, newY)) {
+            if (isWithinBounds(newX, newY) && !isCellOccupied(newX, newY, draggableObject)) {
                 draggableObject.setLayoutX(newX);
                 draggableObject.setLayoutY(newY);
             }
         });
 
         draggableObject.setOnMouseReleased(event -> {
-            // Größe jedes Feldes plus Dicke der Linien
-            int sizeWithLines = 50 + 1; // Hier nehmen wir an, dass die Dicke der Linie in die Größe der Zelle einbezogen wird
+            int sizeWithLines = 50 + 1;
+
             // Berechne die Mitte der nächsten Zelle
             double newX = Math.round((draggableObject.getLayoutX()) / sizeWithLines) * sizeWithLines;
             double newY = Math.round((draggableObject.getLayoutY()) / sizeWithLines) * sizeWithLines;
-            // Aktualisiere die Position des Objekts, um es in die Mitte der nächsten Zelle zu setzen
-            //draggableObject.setLayoutX(newX + 2); // +1 für die Linienverschiebung
-            //draggableObject.setLayoutY(newY + -18); // +1 für die Linienverschiebung
 
-
+            // Überprüfe, ob sich der Spielstein innerhalb der zulässigen Bereiche befindet
             if (isWithinBounds(newX, newY)) {
-                // Aktualisiere die Position des Objekts, um es in die Mitte der nächsten Zelle zu setzen
-                draggableObject.setLayoutX(newX + 2); // +1 für die Linienverschiebung
-                draggableObject.setLayoutY(newY - 18); // +1 für die Linienverschiebung
+                // Überprüfe, ob die beabsichtigte Position frei ist
+                if (!isCellOccupied(newX, newY, draggableObject)) {
+                    // Aktualisiere die Position des Objekts, um es in die Mitte der nächsten Zelle zu setzen
+                    draggableObject.setLayoutX(newX + 2); // +1 für die Linienverschiebung
+                    draggableObject.setLayoutY(newY - 18); // +1 für die Linienverschiebung
 
-                printGameCoordinates(draggableObject);
+                    printGameCoordinates(draggableObject);
+                } else {
+                    // Setze den Stein zurück auf die ursprüngliche Position, wenn die Position besetzt ist
+                    resetStonePosition(draggableObject, event.getSceneX() - xOffset, event.getSceneY() - yOffset);
+                }
             } else {
-                // Setze den Stein zurück auf die ursprüngliche Position
-                draggableObject.setLayoutX(event.getSceneX() - xOffset);
-                draggableObject.setLayoutY(event.getSceneY() - yOffset);
+                // Setze den Stein zurück auf die ursprüngliche Position, wenn die Position außerhalb der zulässigen Bereiche liegt
+                resetStonePosition(draggableObject, event.getSceneX() - xOffset, event.getSceneY() - yOffset);
             }
         });
-
-
     }
 
     private boolean isWithinBounds(double x, double y) {
@@ -168,19 +196,32 @@ public class DragDropDemoController {
     }
 
     public void auswertenButton() {
+        // Ändere die Textfarbe des Buttons kurzzeitig
+        auswertenButton.setStyle("-fx-text-fill: green; -fx-background-color: transparent;");
 
+        // ...
+
+        // Verzögere die Farbänderung für einen kurzen Moment
+        PauseTransition pause = new PauseTransition(Duration.millis(200)); // Anpassen Sie die Dauer nach Bedarf
+        pause.setOnFinished(event -> {
+            // Setze die Textfarbe des Buttons zurück
+            auswertenButton.setStyle("-fx-text-fill: -fx-text-base-color; -fx-background-color: transparent;");
+        });
+        pause.play();
+    }
+
+    public void neuButton() {
         // Ändere die Farbe des Buttons kurzzeitig
-        auswertenButton.setStyle("-fx-background-color: brown;");
+        neuButton.setStyle("-fx-text-fill: green; -fx-background-color: transparent;");
 
         // Führe hier den gewünschten Code für die Auswertung durch
 
         // Verzögere die Farbänderung für einen kurzen Moment
-        PauseTransition pause = new PauseTransition(Duration.millis(500)); // Anpassen Sie die Dauer nach Bedarf
+        PauseTransition pause = new PauseTransition(Duration.millis(200)); // Anpassen Sie die Dauer nach Bedarf
         pause.setOnFinished(event -> {
             // Setze die Farbe des Buttons zurück
-            auswertenButton.setStyle("-fx-background-color: transparent;");
+            neuButton.setStyle("-fx-text-fill: -fx-text-base-color; -fx-background-color: transparent;");
         });
         pause.play();
-
     }
 }

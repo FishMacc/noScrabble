@@ -55,7 +55,7 @@
                         <Image url="@../img/Stein.png"/>
                     </image>
                 </ImageView>
-                <Label layoutX="6.0" prefHeight="45.0" prefWidth="21.0" text="B" textAlignment="CENTER">
+                <Label layoutX="6.0" prefHeight="45.0" prefWidth="21.0" text="L" textAlignment="CENTER">
                     <font>
                         <Font name="System Bold" size="27.0"/>
                     </font>
@@ -70,7 +70,7 @@
                         <Image url="@../img/Stein.png"/>
                     </image>
                 </ImageView>
-                <Label layoutX="6.0" prefHeight="45.0" prefWidth="21.0" text="C" textAlignment="CENTER">
+                <Label layoutX="6.0" prefHeight="45.0" prefWidth="21.0" text="H" textAlignment="CENTER">
                     <font>
                         <Font name="System Bold" size="27.0"/>
                     </font>
@@ -100,7 +100,7 @@
                         <Image url="@../img/Stein.png"/>
                     </image>
                 </ImageView>
-                <Label layoutX="6.0" prefHeight="45.0" prefWidth="21.0" text="C" textAlignment="CENTER">
+                <Label layoutX="6.0" prefHeight="45.0" prefWidth="21.0" text="O" textAlignment="CENTER">
                     <font>
                         <Font name="System Bold" size="27.0"/>
                     </font>
@@ -115,7 +115,7 @@
                         <Image url="@../img/Stein.png"/>
                     </image>
                 </ImageView>
-                <Label layoutX="6.0" prefHeight="45.0" prefWidth="21.0" text="C" textAlignment="CENTER">
+                <Label layoutX="6.0" prefHeight="45.0" prefWidth="21.0" text="L" textAlignment="CENTER">
                     <font>
                         <Font name="System Bold" size="27.0"/>
                     </font>
@@ -162,9 +162,9 @@
                         <Image url="@../img/Knopf.png"/>
                     </image>
                 </ImageView>
-                <Button alignment="center" contentDisplay="TOP" mnemonicParsing="false" prefHeight="45.0"
-                        prefWidth="138.0" style="-fx-background-color: transparent;" text="Neuer Stein"
-                        textAlignment="CENTER">
+                <Button fx:id="neuButton" alignment="center" contentDisplay="TOP" mnemonicParsing="false"
+                        onAction="#neuButton" prefHeight="45.0" prefWidth="138.0"
+                        style="-fx-background-color: transparent;" text="Neuer Stein" textAlignment="CENTER">
                     <font>
                         <Font name="System Bold" size="17.0"/>
                     </font>
