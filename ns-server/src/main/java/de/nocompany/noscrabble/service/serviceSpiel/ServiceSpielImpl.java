@@ -18,6 +18,7 @@ public class ServiceSpielImpl implements ServiceSpielInterface {
     public ServiceSpielImpl() {
         this.spielerListe = new ArrayList<Spieler>();
     }
+    public Spieler aktiverSpieler;
 
     @Override
     public void neuesSpiel(List<String> spielerNamen) {
@@ -35,11 +36,12 @@ public class ServiceSpielImpl implements ServiceSpielInterface {
         leaderBoard = new Leaderboard(spielerListe);
         //erstelle Spielfeld
         serviceSpielbrett = new ServiceSpielbrettImpl();
+    }
 
 
     @Override
     public void pruefeWoerter() {
-
+        //TODO
     }
 
     @Override
@@ -48,12 +50,14 @@ public class ServiceSpielImpl implements ServiceSpielInterface {
     }
 
     @Override
-    public void ersetzeBuchstaben() {
-
+    public void ersetzeBuchstaben(List<Character> zuWechseln) {
+        aktiverSpieler.removeBuchstaben(zuWechseln);
+        aktiverSpieler.fillRack();
     }
 
     @Override
     public void beendeSpiel() {
-
+    //TODO
+        //für das ende des spieles -> führt zum Endbildschirm
     }
 }

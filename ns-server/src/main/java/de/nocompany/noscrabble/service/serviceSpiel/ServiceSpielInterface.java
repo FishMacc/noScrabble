@@ -10,7 +10,7 @@ public interface ServiceSpielInterface {
 
     void passeRunde();
 
-    void ersetzeBuchstaben();
+    void ersetzeBuchstaben(List<Character> zuWechseln);
 
     void beendeSpiel();
 
