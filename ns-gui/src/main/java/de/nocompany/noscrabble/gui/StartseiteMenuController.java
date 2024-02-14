@@ -3,10 +3,9 @@ package de.nocompany.noscrabble.gui;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
-import javafx.scene.image.ImageView;
 
-public class StartseiteHintergrundController {
-    public ImageView iStartbild;
+public class StartseiteMenuController {
+
     public Menu mbSpiel;
     public MenuItem mbNeuesSpiel;
     public MenuItem mbSpielBeenden;

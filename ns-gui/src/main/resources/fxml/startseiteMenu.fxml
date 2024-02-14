@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.Pane?>
+<Pane maxWidth="1024.0" minWidth="1024.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/17.0.2-ea"
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.nocompany.noscrabble.gui.StartseiteMenuController">
+    <children>
+        <MenuBar prefHeight="25.0" prefWidth="1024.0">
+            <menus>
+                <Menu fx:id="mbSpiel" mnemonicParsing="false" onAction="#doOpenMenuSpiel" text="Spiel">
+                    <items>
+                        <MenuItem fx:id="mbNeuesSpiel" mnemonicParsing="false" onAction="#doNeuesSpiel"
+                                  text="Neues Spiel"/>
+                        <MenuItem fx:id="mbSpielBeenden" mnemonicParsing="false" onAction="#doSpielBeenden"
+                                  text="Spiel beenden"/>
+                    </items>
+                </Menu>
+                <Menu fx:id="mbHilfe" mnemonicParsing="false" onAction="#doOpenMenuHilfe" text="Hilfe">
+                    <items>
+                        <MenuItem fx:id="mbSpielregeln" mnemonicParsing="false" onAction="#doOpenSpielregeln"
+                                  text="Spielregeln"/>
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+    </children>
+</Pane>
