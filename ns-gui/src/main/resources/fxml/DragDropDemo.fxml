@@ -146,7 +146,8 @@
                         <Image url="@../img/Knopf.png"/>
                     </image>
                 </ImageView>
-                <Button alignment="CENTER" mnemonicParsing="false" prefHeight="45.0" prefWidth="138.0"
+                <Button fx:id="auswertenButton" alignment="center" contentDisplay="TOP" mnemonicParsing="false"
+                        onAction="#auswertenButton" prefHeight="45.0" prefWidth="138.0"
                         style="-fx-background-color: transparent;" text="Auswerten">
                     <font>
                         <Font name="System Bold" size="17.0"/>
@@ -161,8 +162,9 @@
                         <Image url="@../img/Knopf.png"/>
                     </image>
                 </ImageView>
-                <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="138.0"
-                        style="-fx-background-color: transparent;" text="Neuer Stein">
+                <Button alignment="center" contentDisplay="TOP" mnemonicParsing="false" prefHeight="45.0"
+                        prefWidth="138.0" style="-fx-background-color: transparent;" text="Neuer Stein"
+                        textAlignment="CENTER">
                     <font>
                         <Font name="System Bold" size="17.0"/>
                     </font>

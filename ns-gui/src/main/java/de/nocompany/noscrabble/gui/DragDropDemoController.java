@@ -1,8 +1,12 @@
 package de.nocompany.noscrabble.gui;
 
+import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
+import javafx.util.Duration;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +18,10 @@ public class DragDropDemoController {
     @FXML
     private Pane spielersteine;
     private List<Pane> draggableObjects = new ArrayList<>(); // Liste der draggable Objekte
+    @FXML
+    private Button auswertenButton;
+    @FXML
+    private Text auswertungsText;
 
 
     private double xOffset = 0;
@@ -157,5 +165,22 @@ public class DragDropDemoController {
 
         // Überprüfe, ob sich die Position innerhalb der zulässigen Bereiche befindet
         return (gameX >= 1 && gameX <= 15 && gameY >= 1 && gameY <= 15) || (gameX >= 5 && gameX <= 11 && gameY == 17 || (gameX >= 5 && gameX <= 11 && gameY == 16));
+    }
+
+    public void auswertenButton() {
+
+        // Ändere die Farbe des Buttons kurzzeitig
+        auswertenButton.setStyle("-fx-background-color: brown;");
+
+        // Führe hier den gewünschten Code für die Auswertung durch
+
+        // Verzögere die Farbänderung für einen kurzen Moment
+        PauseTransition pause = new PauseTransition(Duration.millis(500)); // Anpassen Sie die Dauer nach Bedarf
+        pause.setOnFinished(event -> {
+            // Setze die Farbe des Buttons zurück
+            auswertenButton.setStyle("-fx-background-color: transparent;");
+        });
+        pause.play();
+
     }
 }
