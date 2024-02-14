@@ -1,8 +1,8 @@
 package de.nocompany.noscrabble.gui;
 
 import javafx.fxml.FXML;
-import javafx.scene.shape.Line;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Line;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -107,14 +107,21 @@ public class DragDropDemoController {
     }
 
     private void setupDraggableObject(Pane draggableObject) {
+
         draggableObject.setOnMousePressed(event -> {
             xOffset = event.getSceneX() - draggableObject.getLayoutX();
             yOffset = event.getSceneY() - draggableObject.getLayoutY();
         });
 
         draggableObject.setOnMouseDragged(event -> {
-            draggableObject.setLayoutX(event.getSceneX() - xOffset);
-            draggableObject.setLayoutY(event.getSceneY() - yOffset);
+            double newX = event.getSceneX() - xOffset;
+            double newY = event.getSceneY() - yOffset;
+
+            // Überprüfe, ob sich der Spielstein innerhalb der zulässigen Bereiche befindet
+            if (isWithinBounds(newX, newY)) {
+                draggableObject.setLayoutX(newX);
+                draggableObject.setLayoutY(newY);
+            }
         });
 
         draggableObject.setOnMouseReleased(event -> {
@@ -124,17 +131,31 @@ public class DragDropDemoController {
             double newX = Math.round((draggableObject.getLayoutX()) / sizeWithLines) * sizeWithLines;
             double newY = Math.round((draggableObject.getLayoutY()) / sizeWithLines) * sizeWithLines;
             // Aktualisiere die Position des Objekts, um es in die Mitte der nächsten Zelle zu setzen
-            draggableObject.setLayoutX(newX + 2); // +1 für die Linienverschiebung
-            draggableObject.setLayoutY(newY + -18); // +1 für die Linienverschiebung
+            //draggableObject.setLayoutX(newX + 2); // +1 für die Linienverschiebung
+            //draggableObject.setLayoutY(newY + -18); // +1 für die Linienverschiebung
 
 
-            double xPosition = draggableObject.getLayoutX();
-            double yPosition = draggableObject.getLayoutY();
-            printGameCoordinates(draggableObject);
-            System.out.println("Position von " +draggableObject + "- X: " + xPosition + ", Y: " + yPosition);
+            if (isWithinBounds(newX, newY)) {
+                // Aktualisiere die Position des Objekts, um es in die Mitte der nächsten Zelle zu setzen
+                draggableObject.setLayoutX(newX + 2); // +1 für die Linienverschiebung
+                draggableObject.setLayoutY(newY - 18); // +1 für die Linienverschiebung
+
+                printGameCoordinates(draggableObject);
+            } else {
+                // Setze den Stein zurück auf die ursprüngliche Position
+                draggableObject.setLayoutX(event.getSceneX() - xOffset);
+                draggableObject.setLayoutY(event.getSceneY() - yOffset);
+            }
         });
 
 
     }
 
+    private boolean isWithinBounds(double x, double y) {
+        int gameX = convertToGameCoordinate(x);
+        int gameY = convertToGameCoordinate(y);
+
+        // Überprüfe, ob sich die Position innerhalb der zulässigen Bereiche befindet
+        return (gameX >= 1 && gameX <= 15 && gameY >= 1 && gameY <= 15) || (gameX >= 5 && gameX <= 11 && gameY == 17 || (gameX >= 5 && gameX <= 11 && gameY == 16));
+    }
 }

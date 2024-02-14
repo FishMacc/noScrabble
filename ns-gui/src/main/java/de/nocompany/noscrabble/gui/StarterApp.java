@@ -10,7 +10,6 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.net.URL;
 
 public class StarterApp extends Application {
 
@@ -21,14 +20,15 @@ public class StarterApp extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         Starter s = new Starter();
-        Label l = new Label("Hallo noScabble! "+s.getVersion());
+        Label l = new Label("Hallo noScabble! " + s.getVersion());
         HBox root = new HBox();
         root.getChildren().add(l);
         Scene scene = new Scene(root, 300, 400);
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        //primaryStage.setScene(scene);
+        //sprimaryStage.show();
         showDragDropDemo();
     }
+
     private void showDragDropDemo() {
         try {
             // Erstelle das Fenster für die Drag-and-Drop-Demo
@@ -36,7 +36,7 @@ public class StarterApp extends Application {
             Parent root = fxmlLoader.load();
             Stage stage = new Stage();
             stage.setTitle("Drag-and-Drop-Demo");
-            stage.setScene(new Scene(root, 1000, 1000)); // Größe des Fensters entsprechend anpassen
+            stage.setScene(new Scene(root, 1300, 1024)); // Größe des Fensters entsprechend anpassen
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
