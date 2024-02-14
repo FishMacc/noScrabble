@@ -1,10 +1,6 @@
 package de.nocompany.noscrabble.model.spielsteinpool;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 public class SpielsteinPool {
     private List<Character> buchstabenListe;
@@ -48,14 +44,14 @@ public class SpielsteinPool {
         buchstabenHaeufigkeiten.put('V', 1);
 
         // 5 Punkte Buchstaben und ihre Häufigkeiten
-        buchstabenHaeufigkeiten.put('Ü', 1);
+        buchstabenHaeufigkeiten.put('\u00DC', 1);
 
         // 6 Punkte Buchstaben und ihre Häufigkeiten
-        buchstabenHaeufigkeiten.put('Ä', 1);
+        buchstabenHaeufigkeiten.put('\u00C4', 1);
         buchstabenHaeufigkeiten.put('J', 1);
 
         // 8 Punkte Buchstaben und ihre Häufigkeiten
-        buchstabenHaeufigkeiten.put('Ö', 1);
+        buchstabenHaeufigkeiten.put('\u00D6', 1);
         buchstabenHaeufigkeiten.put('X', 1);
 
         // 10 Punkte Buchstaben und ihre Häufigkeiten
@@ -70,6 +66,7 @@ public class SpielsteinPool {
             }
         }
     }
+
     public char getBuchstabe() {
         if (buchstabenListe.isEmpty()) {
             throw new IllegalStateException("Der Buchstabenpool ist leer.");
@@ -78,10 +75,11 @@ public class SpielsteinPool {
         return buchstabenListe.remove(index);
     }
 
-    public void addBuchstabe(char buchstabe){
+    public void addBuchstabe(char buchstabe) {
         buchstabenListe.add(buchstabe);
     }
-    public int getListenLaenge(){
+
+    public int getListenLaenge() {
         return buchstabenListe.size();
     }
 }

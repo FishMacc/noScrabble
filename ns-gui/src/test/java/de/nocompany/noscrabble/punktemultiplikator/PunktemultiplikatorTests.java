@@ -2,8 +2,6 @@ package de.nocompany.noscrabble.punktemultiplikator;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
-import de.nocompany.noscrabble.model.punktemultiplikator.*;
 
 class PunktemultiplikatorTest {
 
@@ -24,9 +22,9 @@ class PunktemultiplikatorTest {
 
     @Test
     void testCalcWortPunkte() {
-        assertEquals(33,punktemultiplikator.calcWortPunkte("Für",0,0,true));
-        assertEquals(22,punktemultiplikator.calcWortPunkte("Amnesia",1,1,true));
+        assertEquals(33, punktemultiplikator.calcWortPunkte("Für", 0, 0, true));
+        assertEquals(22, punktemultiplikator.calcWortPunkte("Amnesia", 1, 1, true));
         assertEquals(10, punktemultiplikator.calcWortPunkte("CAT", 3, 0, true));
-        assertEquals(66,punktemultiplikator.calcWortPunkte("Katzenbaum",7,0,false));
+        assertEquals(66, punktemultiplikator.calcWortPunkte("Katzenbaum", 7, 0, false));
     }
 }

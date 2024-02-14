@@ -48,17 +48,19 @@ public class Punktemultiplikator {
         buchstabenPunkte.put('F', 4);
         buchstabenPunkte.put('K', 4);
         buchstabenPunkte.put('P', 4);
-        buchstabenPunkte.put('Ä', 6);
+        buchstabenPunkte.put('\u00C4', 6);  // Unicode-Escape für 'Ä'
         buchstabenPunkte.put('J', 6);
-        buchstabenPunkte.put('Ü', 6);
+        buchstabenPunkte.put('\u00DC', 6);  // Unicode-Escape für 'Ü'
         buchstabenPunkte.put('V', 6);
-        buchstabenPunkte.put('Ö', 8);
+        buchstabenPunkte.put('\u00D6', 8);  // Unicode-Escape für 'Ö'
         buchstabenPunkte.put('X', 8);
         buchstabenPunkte.put('Q', 10);
         buchstabenPunkte.put('Y', 10);
+
         return buchstabenPunkte.getOrDefault(letter, 0);
     }
-    public  int calcWortPunkte(String wort, int startx, int starty, boolean horizontal) {
+
+    public int calcWortPunkte(String wort, int startx, int starty, boolean horizontal) {
         wort = wort.toUpperCase();
         int gesamtPunkte = 0;
         int wortMultiplikator = 1;
@@ -71,13 +73,13 @@ public class Punktemultiplikator {
             int buchstabenPunkte = calcLetterPunkte(letter);
 
             Multiplikator multiplikator = punkteMultiplikatoren[y][x];
-            punkteMultiplikatoren[y][x]=NORMAL;
+            punkteMultiplikatoren[y][x] = NORMAL;
 
             if (multiplikator == Multiplikator.DW || multiplikator == TW) {
                 wortMultiplikator *= multiplikator.getWert();
                 gesamtPunkte += buchstabenPunkte;
             } else {
-                gesamtPunkte += buchstabenPunkte*multiplikator.getWert();
+                gesamtPunkte += buchstabenPunkte * multiplikator.getWert();
             }
         }
         gesamtPunkte *= wortMultiplikator;
