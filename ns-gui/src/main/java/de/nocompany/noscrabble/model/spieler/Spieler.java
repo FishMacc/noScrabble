@@ -5,18 +5,20 @@ import de.nocompany.noscrabble.model.spielsteinpool.SpielsteinPool;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Spieler{
+public class Spieler {
     private String name;
     private List<Character> buchstabenRack = new ArrayList<>();
     private int punkte = 0;
     private boolean turn = false;
     private SpielsteinPool pool;
-    Spieler(SpielsteinPool pool){
+
+    public Spieler(SpielsteinPool pool) {
         this.pool = pool;
         fillRack();
     }
+
     public void setName(String name) {
-        this.name=name;
+        this.name = name;
     }
 
     public String getName() {
@@ -32,7 +34,7 @@ public class Spieler{
     }
 
     public void updatePunkte(int addpunkte) {
-        this.punkte+=addpunkte;
+        this.punkte += addpunkte;
     }
 
     public int getPunkte() {
@@ -44,7 +46,7 @@ public class Spieler{
     }
 
     public void setTurn(boolean isTurn) {
-        turn=isTurn;
+        turn = isTurn;
     }
 
     public boolean isTurn() {
@@ -58,7 +60,7 @@ public class Spieler{
         }
     }
 
-    public void givebackBuchstabe(int index){
+    public void givebackBuchstabe(int index) {
         pool.addBuchstabe(buchstabenRack.get(index));
         buchstabenRack.remove(index);
     }
