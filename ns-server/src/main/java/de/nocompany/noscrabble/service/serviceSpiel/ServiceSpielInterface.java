@@ -6,7 +6,7 @@ public interface ServiceSpielInterface {
 
     void neuesSpiel(List<String> spielerListe);
 
-    void pruefeWoerter(Character[][] spielbrett);
+    boolean pruefeWoerter(Character[][] spielbrett);
 
     void passeRunde();
 

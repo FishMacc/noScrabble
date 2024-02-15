@@ -4,6 +4,7 @@ import de.nocompany.noscrabble.model.leaderboard.Leaderboard;
 import de.nocompany.noscrabble.model.spieler.Spieler;
 import de.nocompany.noscrabble.model.spielsteinpool.SpielsteinPool;
 import de.nocompany.noscrabble.service.serviceSpielbrett.ServiceSpielbrettImpl;
+import de.nocompany.noscrabble.service.serviceWoerter.ServiceWoerterImpl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,10 +15,12 @@ public class ServiceSpielImpl implements ServiceSpielInterface {
     private Leaderboard leaderBoard;
 
     private ServiceSpielbrettImpl serviceSpielbrett;
+    private ServiceWoerterImpl serviceWoerter;
 
     public ServiceSpielImpl() {
         this.spielerListe = new ArrayList<Spieler>();
     }
+
     public Spieler aktiverSpieler;
 
     @Override
@@ -32,21 +35,32 @@ public class ServiceSpielImpl implements ServiceSpielInterface {
         }
         //Startspieler setzen
         spielerListe.getFirst().setTurn(true);
+        aktiverSpieler = spielerListe.getFirst();
         //erstelle Leaderboard
         leaderBoard = new Leaderboard(spielerListe);
         //erstelle Spielfeld
         serviceSpielbrett = new ServiceSpielbrettImpl();
+        serviceWoerter = new ServiceWoerterImpl();
+
     }
 
 
     @Override
-    public void pruefeWoerter() {
-        //TODO
+    public boolean pruefeWoerter(Character[][] spielbrett) {
+        return serviceWoerter.calcNewWordPoints(serviceSpielbrett.getSpielbrett(), spielbrett);
+    }
+
+    public int berrechnePunkte() {
+        return serviceWoerter.getPunkte();
     }
 
     @Override
     public void passeRunde() {
-    //TODO
+        int aktiverIndex = spielerListe.indexOf(aktiverSpieler);
+        aktiverSpieler.setTurn(false);
+        int naechsterIndex = (aktiverIndex + 1) % spielerListe.size();
+        aktiverSpieler = spielerListe.get(naechsterIndex);
+        aktiverSpieler.setTurn(true);
     }
 
     @Override
@@ -57,7 +71,9 @@ public class ServiceSpielImpl implements ServiceSpielInterface {
 
     @Override
     public void beendeSpiel() {
-    //TODO
-        //für das ende des spieles -> führt zum Endbildschirm
+        leaderBoard.sortiereSpieler();
+        System.out.println("Spiel beendet. Endstand:");
+        System.out.println(leaderBoard.leaderboardList());
+    }
     }
 }
