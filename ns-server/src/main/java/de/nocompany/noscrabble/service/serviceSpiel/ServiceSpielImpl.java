@@ -75,5 +75,4 @@ public class ServiceSpielImpl implements ServiceSpielInterface {
         System.out.println("Spiel beendet. Endstand:");
         System.out.println(leaderBoard.leaderboardList());
     }
-    }
 }
