@@ -3,8 +3,10 @@ package de.nocompany.noscrabble.gui;
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Pane;
-import javafx.scene.shape.Line;
+import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import org.w3c.dom.Text;
 
@@ -45,7 +47,7 @@ public class SpielfeldController {
 
     @FXML
     private void initialize() {
-        drawMatrix();
+
         setupDraggableObjects();
     }
 
@@ -102,30 +104,6 @@ public class SpielfeldController {
         draggableObject.setLayoutY(originalY);
     }
 
-    private void drawMatrix() {
-        int size = 50; // Größe jedes Feldes
-        int thickness = 1; // Dicke der Linien
-        int cells = 15; // Anzahl der Zellen in jeder Richtung
-
-        // Berechne die Gesamtgröße des Gitters
-        int totalSize = cells * size + (cells - 1) * thickness;
-
-        // Stellen Sie sicher, dass das drawingPane groß genug ist
-        drawingPane.setPrefSize(totalSize, totalSize);
-
-        // Zeichne die horizontalen und vertikalen Linien
-        for (int i = 0; i <= cells; i++) {
-            // Horizontale Linie
-            Line horizontalLine = new Line(0, i * (size + thickness), totalSize, i * (size + thickness));
-            horizontalLine.setStrokeWidth(thickness);
-
-            // Vertikale Linie
-            Line verticalLine = new Line(i * (size + thickness), 0, i * (size + thickness), totalSize);
-            verticalLine.setStrokeWidth(thickness);
-
-            drawingPane.getChildren().addAll(horizontalLine, verticalLine);
-        }
-    }
 
     private void setupDraggableObjects() {
         // Fügen Sie Ihre draggable Objekte zur Liste hinzu
@@ -157,6 +135,29 @@ public class SpielfeldController {
             if (isWithinBounds(newX, newY) && !isCellOccupied(newX, newY, draggableObject)) {
                 draggableObject.setLayoutX(newX);
                 draggableObject.setLayoutY(newY);
+            }
+        });
+
+        draggableObject.setOnMouseClicked(mouseClickEvent -> {
+            if (mouseClickEvent.getButton() == MouseButton.SECONDARY) {
+                // Ändere die Schriftfarbe der Labels im stein1 Pane auf Blau
+                if (draggableObject.getChildren().size() >= 2 &&
+                        draggableObject.getChildren().get(1) instanceof Label &&
+                        draggableObject.getChildren().get(2) instanceof Label) {
+
+                    Label letterLabel = (Label) draggableObject.getChildren().get(1);
+                    Label numberLabel = (Label) draggableObject.getChildren().get(2);
+
+                    // Überprüfe, ob die Schriftfarbe bereits blau ist
+                    if (letterLabel.getTextFill() != Color.BLUE) {
+                        letterLabel.setTextFill(Color.BLUE);
+                        numberLabel.setTextFill(Color.BLUE);
+                    } else {
+                        // Setze die Schriftfarbe auf die ursprüngliche Farbe zurück
+                        letterLabel.setTextFill(Color.BLACK);  // Hier die ursprüngliche Farbe für den Buchstaben
+                        numberLabel.setTextFill(Color.BLACK);  // Hier die ursprüngliche Farbe für die Zahl
+                    }
+                }
             }
         });
 
