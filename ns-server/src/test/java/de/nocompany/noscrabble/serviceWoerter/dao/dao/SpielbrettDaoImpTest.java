@@ -1,4 +1,4 @@
-package de.nocompany.noscrabble.serviceWoerter.dao;
+package de.nocompany.noscrabble.serviceWoerter.dao.dao;
 
 import de.nocompany.noscrabble.dao.daoSpielbrett.SpielbrettDaoImpl;
 import org.junit.jupiter.api.AfterEach;
