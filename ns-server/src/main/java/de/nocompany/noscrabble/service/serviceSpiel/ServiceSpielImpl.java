@@ -12,7 +12,7 @@ import java.util.List;
 public class ServiceSpielImpl implements ServiceSpielInterface {
     private SpielsteinPool spielsteinPool;
     private final ArrayList<Spieler> spielerListe;
-    private Leaderboard leaderBoard;
+
 
     private ServiceSpielbrettImpl serviceSpielbrett;
     private ServiceWoerterImpl serviceWoerter;
@@ -36,22 +36,20 @@ public class ServiceSpielImpl implements ServiceSpielInterface {
         //Startspieler setzen
         spielerListe.getFirst().setTurn(true);
         aktiverSpieler = spielerListe.getFirst();
-        //erstelle Leaderboard
-        leaderBoard = new Leaderboard(spielerListe);
         //erstelle Spielfeld
         serviceSpielbrett = new ServiceSpielbrettImpl();
         serviceWoerter = new ServiceWoerterImpl();
-
     }
 
 
     @Override
     public boolean pruefeWoerter(Character[][] spielbrett) {
-        return serviceWoerter.calcNewWordPoints(serviceSpielbrett.getSpielbrett(), spielbrett);
-    }
-
-    public int berrechnePunkte() {
-        return serviceWoerter.getPunkte();
+        if (serviceWoerter.calcNewWordPoints(serviceSpielbrett.getSpielbrett(), spielbrett)) {
+            aktiverSpieler.updatePunkte(serviceWoerter.getPunkte());
+            serviceSpielbrett.saveSpielbrett(spielbrett);
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -71,8 +69,15 @@ public class ServiceSpielImpl implements ServiceSpielInterface {
 
     @Override
     public void beendeSpiel() {
+        Leaderboard leaderBoard = new Leaderboard(spielerListe);
         leaderBoard.sortiereSpieler();
         System.out.println("Spiel beendet. Endstand:");
         System.out.println(leaderBoard.leaderboardList());
+    }
+
+    @Override
+    public List<String> listeLeaderboard() {
+        Leaderboard leaderBoard = new Leaderboard(spielerListe);
+        return leaderBoard.leaderboardList();
     }
 }
