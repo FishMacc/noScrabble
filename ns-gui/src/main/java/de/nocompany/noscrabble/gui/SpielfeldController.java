@@ -224,5 +224,6 @@ public class SpielfeldController {
             neuButton.setStyle("-fx-text-fill: -fx-text-base-color; -fx-background-color: transparent;");
         });
         pause.play();
+
     }
 }
