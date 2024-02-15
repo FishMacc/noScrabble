@@ -147,12 +147,13 @@
                     </image>
                 </ImageView>
                 <Button fx:id="auswertenButton" alignment="center" contentDisplay="TOP" mnemonicParsing="false"
-                        onAction="#auswertenButton" prefHeight="45.0" prefWidth="138.0"
+                        onAction="#auswerten" prefHeight="45.0" prefWidth="138.0"
                         style="-fx-background-color: transparent;" text="Auswerten">
                     <font>
                         <Font name="System Bold" size="17.0"/>
                     </font>
                 </Button>
+
             </children>
         </Pane>
         <Pane layoutX="92.0" layoutY="900.0" prefHeight="45.0" prefWidth="138.0">
