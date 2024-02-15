@@ -15,6 +15,7 @@ import java.util.List;
 public class SpielfeldController {
 
     private List<Pane> draggableObjects = new ArrayList<>(); // Liste der draggable Objekte
+    private boolean auswertungAktiv = false;
     @FXML
     private Button auswertenButton;
     @FXML
@@ -50,11 +51,21 @@ public class SpielfeldController {
     }
 
     private void druckeSpielKoordinaten(Pane draggableObject) {
-        double xPosition = draggableObject.getLayoutX();
-        double yPosition = draggableObject.getLayoutY();
-        int spielX = konvertiereZuSpielKoordinate(xPosition);
-        int spielY = konvertiereZuSpielKoordinate(yPosition);
-        System.out.println("Position von " + draggableObject + "- X: " + spielX + ", Y: " + spielY);
+        // Drucke Spielkoordinaten nur für Steine auf dem Spielfeld
+        if (!auswertungAktiv && istAufSpielfeld(draggableObject)) {
+            double xPosition = draggableObject.getLayoutX();
+            double yPosition = draggableObject.getLayoutY();
+            int spielX = konvertiereZuSpielKoordinate(xPosition);
+            int spielY = konvertiereZuSpielKoordinate(yPosition);
+            System.out.println("Position von " + draggableObject + "- X: " + spielX + ", Y: " + spielY);
+        }
+    }
+
+    private boolean istAufSpielfeld(Pane draggableObject) {
+        // Überprüfe, ob der Stein auf dem Spielfeld liegt
+        int spielX = konvertiereZuSpielKoordinate(draggableObject.getLayoutX());
+        int spielY = konvertiereZuSpielKoordinate(draggableObject.getLayoutY());
+        return (spielX >= 1 && spielX <= 15 && spielY >= 1 && spielY <= 15);
     }
 
     private boolean istZelleBesetzt(double x, double y, Pane currentStone) {
@@ -98,22 +109,26 @@ public class SpielfeldController {
 
     private void setupDraggableObject(Pane draggableObject) {
         draggableObject.setOnMousePressed(event -> {
-            xOffset = event.getSceneX() - draggableObject.getLayoutX();
-            yOffset = event.getSceneY() - draggableObject.getLayoutY();
+            if (!auswertungAktiv) {
+                xOffset = event.getSceneX() - draggableObject.getLayoutX();
+                yOffset = event.getSceneY() - draggableObject.getLayoutY();
+            }
         });
 
         draggableObject.setOnMouseDragged(event -> {
-            double newX = event.getSceneX() - xOffset;
-            double newY = event.getSceneY() - yOffset;
+            if (!auswertungAktiv) {
+                double newX = event.getSceneX() - xOffset;
+                double newY = event.getSceneY() - yOffset;
 
-            if (istInnerhalbGrenzen(newX, newY) && !istZelleBesetzt(newX, newY, draggableObject)) {
-                draggableObject.setLayoutX(newX);
-                draggableObject.setLayoutY(newY);
+                if (istInnerhalbGrenzen(newX, newY) && !istZelleBesetzt(newX, newY, draggableObject)) {
+                    draggableObject.setLayoutX(newX);
+                    draggableObject.setLayoutY(newY);
+                }
             }
         });
 
         draggableObject.setOnMouseClicked(mouseClickEvent -> {
-            if (mouseClickEvent.getButton() == MouseButton.SECONDARY) {
+            if (!auswertungAktiv && mouseClickEvent.getButton() == MouseButton.SECONDARY) {
                 if (draggableObject.getChildren().size() >= 2 &&
                         draggableObject.getChildren().get(1) instanceof Label &&
                         draggableObject.getChildren().get(2) instanceof Label) {
@@ -133,20 +148,18 @@ public class SpielfeldController {
         });
 
         draggableObject.setOnMouseReleased(event -> {
-            int größeMitLinien = 50 + 1;
-            double newX = Math.round((draggableObject.getLayoutX()) / größeMitLinien) * größeMitLinien;
-            double newY = Math.round((draggableObject.getLayoutY()) / größeMitLinien) * größeMitLinien;
+            if (!auswertungAktiv) {
+                int größeMitLinien = 50 + 1;
+                double newX = Math.round((draggableObject.getLayoutX()) / größeMitLinien) * größeMitLinien;
+                double newY = Math.round((draggableObject.getLayoutY()) / größeMitLinien) * größeMitLinien;
 
-            if (istInnerhalbGrenzen(newX, newY)) {
-                if (!istZelleBesetzt(newX, newY, draggableObject)) {
+                if (istAufSpielfeld(draggableObject) && istInnerhalbGrenzen(newX, newY) && !istZelleBesetzt(newX, newY, draggableObject)) {
                     draggableObject.setLayoutX(newX + 2);
                     draggableObject.setLayoutY(newY - 18);
                     druckeSpielKoordinaten(draggableObject);
                 } else {
                     setzeSteinPositionZurück(draggableObject, event.getSceneX() - xOffset, event.getSceneY() - yOffset);
                 }
-            } else {
-                setzeSteinPositionZurück(draggableObject, event.getSceneX() - xOffset, event.getSceneY() - yOffset);
             }
         });
     }
@@ -154,18 +167,39 @@ public class SpielfeldController {
     private boolean istInnerhalbGrenzen(double x, double y) {
         int spielX = konvertiereZuSpielKoordinate(x);
         int spielY = konvertiereZuSpielKoordinate(y);
-        return (spielX >= 1 && spielX <= 15 && spielY >= 1 && spielY <= 15) ||
-                (spielX >= 5 && spielX <= 11 && spielY == 17) ||
-                (spielX >= 5 && spielX <= 11 && spielY == 16);
+        if (!auswertungAktiv) {
+            return (spielX >= 1 && spielX <= 15 && spielY >= 1 && spielY <= 15);
+        } else {
+            return (spielX >= 5 && spielX <= 11 && spielY == 17);
+        }
     }
 
-    public void auswertenButton() {
-        auswertenButton.setStyle("-fx-text-fill: green; -fx-background-color: transparent;");
+    public void auswerten() {
+        if (!auswertungAktiv) {
+            auswertungAktiv = true; // Setze die Auswertung aktiv
+            auswertenButton.setDisable(true); // Deaktiviere den Auswerten-Button
+            auswertenButton.setStyle("-fx-text-fill: green; -fx-background-color: transparent;");
+            PauseTransition pause = new PauseTransition(Duration.millis(200));
+            pause.setOnFinished(event -> {
+                auswertenButton.setStyle("-fx-text-fill: -fx-text-base-color; -fx-background-color: transparent;");
+            });
+            pause.play();
+
+            for (Pane draggableObject : draggableObjects) {
+                if (istAufSpielfeld(draggableObject)) {
+                    // Deaktiviere Mausereignisse für die Steine auf dem Spielfeld
+                    draggableObject.setOnMousePressed(null);
+                    draggableObject.setOnMouseDragged(null);
+                    draggableObject.setOnMouseReleased(null);
+                }
+            }
+        }
         PauseTransition pause = new PauseTransition(Duration.millis(200));
         pause.setOnFinished(event -> {
-            auswertenButton.setStyle("-fx-text-fill: -fx-text-base-color; -fx-background-color: transparent;");
+            auswertenButton.setDisable(false);
         });
         pause.play();
+        // Weitere Logik zur Auswertung hier einfügen
     }
 
     public void neuButton() {
