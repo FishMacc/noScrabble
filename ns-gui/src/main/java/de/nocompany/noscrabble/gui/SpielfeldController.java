@@ -45,7 +45,7 @@ public class SpielfeldController {
 
     @FXML
     private void initialize() {
-        drawMatrix();
+
         setupDraggableObjects();
     }
 
@@ -102,30 +102,6 @@ public class SpielfeldController {
         draggableObject.setLayoutY(originalY);
     }
 
-    private void drawMatrix() {
-        int size = 50; // Größe jedes Feldes
-        int thickness = 1; // Dicke der Linien
-        int cells = 15; // Anzahl der Zellen in jeder Richtung
-
-        // Berechne die Gesamtgröße des Gitters
-        int totalSize = cells * size + (cells - 1) * thickness;
-
-        // Stellen Sie sicher, dass das drawingPane groß genug ist
-        drawingPane.setPrefSize(totalSize, totalSize);
-
-        // Zeichne die horizontalen und vertikalen Linien
-        for (int i = 0; i <= cells; i++) {
-            // Horizontale Linie
-            Line horizontalLine = new Line(0, i * (size + thickness), totalSize, i * (size + thickness));
-            horizontalLine.setStrokeWidth(thickness);
-
-            // Vertikale Linie
-            Line verticalLine = new Line(i * (size + thickness), 0, i * (size + thickness), totalSize);
-            verticalLine.setStrokeWidth(thickness);
-
-            drawingPane.getChildren().addAll(horizontalLine, verticalLine);
-        }
-    }
 
     private void setupDraggableObjects() {
         // Fügen Sie Ihre draggable Objekte zur Liste hinzu
