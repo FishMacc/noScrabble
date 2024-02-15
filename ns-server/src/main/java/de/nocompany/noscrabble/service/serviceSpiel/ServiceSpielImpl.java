@@ -39,6 +39,13 @@ public class ServiceSpielImpl implements ServiceSpielInterface {
         //erstelle Spielfeld
         serviceSpielbrett = new ServiceSpielbrettImpl();
         serviceWoerter = new ServiceWoerterImpl();
+        //Estelle Spielfeld
+        char[][] spielfeld = new char[15][15];
+        for (int i = 0; i < spielfeld.length; i++) {
+            for (int j = 0; j < spielfeld[i].length; j++) {
+                spielfeld[i][j] = ' '; // Füllen jedes Elements mit einem Leerzeichen
+            }
+        }
 
     }
 
