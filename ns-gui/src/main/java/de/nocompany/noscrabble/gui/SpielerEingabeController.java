@@ -86,6 +86,8 @@ public class SpielerEingabeController {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/Dummy.fxml"));
             Parent dummyContent = fxmlLoader.load();
+            DummyController controller = fxmlLoader.getController();
+            controller.getListe(spielerListe);
             Stage stage = new Stage();
             stage.setScene(new Scene(dummyContent));
             stage.show();
