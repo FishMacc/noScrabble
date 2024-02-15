@@ -1,45 +1,53 @@
 package de.nocompany.noscrabble.gui;
 
-import de.nocompany.noscrabble.Starter;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
 public class StarterApp extends Application {
+    BorderPane root = new BorderPane();
 
     public static void main(String[] args) {
-        launch(args);
+        launch();
     }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Starter s = new Starter();
-        Label l = new Label("Hallo noScabble! " + s.getVersion());
-        HBox root = new HBox();
-        root.getChildren().add(l);
-        Scene scene = new Scene(root, 300, 400);
-        //primaryStage.setScene(scene);
-        //sprimaryStage.show();
-        showDragDropDemo();
+        primaryStage.setTitle("noScrabble");
+        showSpielerEingabe();
+        showStartseiteHintergrund();
+        primaryStage.setScene(new Scene(root, 1024, 1024));
+        primaryStage.show();
     }
 
-    private void showDragDropDemo() {
+    private void showStartseiteHintergrund() {
         try {
-            // Erstelle das Fenster für die Drag-and-Drop-Demo
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/Spielfeld.fxml"));
-            Parent root = fxmlLoader.load();
-            Stage stage = new Stage();
-            stage.setTitle("Drag-and-Drop-Demo");
-            stage.setScene(new Scene(root, 1300, 1024)); // Größe des Fensters entsprechend anpassen
-            stage.show();
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/startseiteMenu.fxml"));
+            Parent hintergrundContent = fxmlLoader.load();
+            root.setTop(hintergrundContent);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+    private void showSpielerEingabe() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/spielerEingabe.fxml"));
+            Parent eingabeContent = fxmlLoader.load();
+            //Stage stage = new Stage();
+            root.setCenter(eingabeContent);
+            //stage.setTitle("noScrabble");
+            //stage.setScene(new Scene(root, 1024, 1024));
+            //stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }
