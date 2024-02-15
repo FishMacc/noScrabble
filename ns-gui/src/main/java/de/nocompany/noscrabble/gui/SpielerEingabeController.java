@@ -1,10 +1,16 @@
 package de.nocompany.noscrabble.gui;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,12 +37,13 @@ public class SpielerEingabeController {
     private List<String> spielerListe = new ArrayList<>();
 
     private int spielerZaehler = 0;
+    private BorderPane root;
 
     @FXML
     void initialize() {
 
         bSpielerHinzufuegen.setOnAction(e -> doAddSpieler());
-        bSpielStarten.setOnAction(e ->doSpielStarten());
+        bSpielStarten.setOnAction(e -> doSpielStarten());
     }
 
 
@@ -61,7 +68,7 @@ public class SpielerEingabeController {
         }
     }
 
-    public void doSpielStarten () {
+    public void doSpielStarten() {
         if (!lSpieler1.getText().isEmpty()) {
             spielerListe.add(lSpieler1.getText());
         }
@@ -74,9 +81,18 @@ public class SpielerEingabeController {
         if (!lSpieler4.getText().isEmpty()) {
             spielerListe.add(lSpieler4.getText());
         }
-        //todo aus der serviceimpl ein neues spiel erstellen
+        //todo aus der spielfeldController ein neues spiel erstellen
         //Spiel = new neuesSpiel(spielerListe);
-        System.out.println("Starte Programm");
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/Dummy.fxml"));
+            Parent dummyContent = fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(dummyContent));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    }
+
+}
