@@ -15,12 +15,15 @@ import java.util.List;
 public class SpielfeldController {
 
     private List<Pane> draggableObjects = new ArrayList<>(); // Liste der draggable Objekte
+
     @FXML
     private Button auswertenButton;
     @FXML
     private Button neuButton;
     private double xOffset = 0;
     private double yOffset = 0;
+
+
 
     @FXML
     private Pane stein1;
@@ -41,7 +44,12 @@ public class SpielfeldController {
     private void initialize() {
         setupDraggableObjects();
     }
+    //final SpielService = new ServiceSpielImpl();
 
+    public void erzeugeNeuesSpiel(List<String> spielerListe) {
+        //SpielService.neuesSpiel(spielerListe);
+
+    }
     private int konvertiereZuSpielKoordinate(double pixelKoordinate) {
         int größeMitLinien = 50 + 1;
         double gerundeteKoordinate = Math.round(pixelKoordinate / größeMitLinien);
