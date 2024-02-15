@@ -8,25 +8,17 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SpielfeldController {
 
-    @FXML
-    private Pane drawingPane;
-    @FXML
-    private Pane spielersteine;
     private List<Pane> draggableObjects = new ArrayList<>(); // Liste der draggable Objekte
     @FXML
     private Button auswertenButton;
     @FXML
     private Button neuButton;
-    @FXML
-    private Text auswertungsText;
-
     private double xOffset = 0;
     private double yOffset = 0;
 
@@ -47,50 +39,36 @@ public class SpielfeldController {
 
     @FXML
     private void initialize() {
-
         setupDraggableObjects();
     }
 
-    private int convertToGameCoordinate(double pixelCoordinate) {
-        int sizeWithLines = 50 + 1; // Größe jedes Feldes plus Dicke der Linien
-
-        // Runde die Pixelkoordinate zur nächsten Zelle
-        double roundedCoordinate = Math.round(pixelCoordinate / sizeWithLines);
-
-        // Subtrahiere 1, um von 1-basierten zu 0-basierten Koordinaten zu wechseln
-        int gameCoordinate = (int) roundedCoordinate - 1;
-
-        return gameCoordinate;
+    private int konvertiereZuSpielKoordinate(double pixelKoordinate) {
+        int größeMitLinien = 50 + 1;
+        double gerundeteKoordinate = Math.round(pixelKoordinate / größeMitLinien);
+        int spielKoordinate = (int) gerundeteKoordinate - 1;
+        return spielKoordinate;
     }
 
-    private void printGameCoordinates(Pane draggableObject) {
+    private void druckeSpielKoordinaten(Pane draggableObject) {
         double xPosition = draggableObject.getLayoutX();
         double yPosition = draggableObject.getLayoutY();
-
-        int gameX = convertToGameCoordinate(xPosition);
-        int gameY = convertToGameCoordinate(yPosition);
-
-        System.out.println("Position von " + draggableObject + "- X: " + gameX + ", Y: " + gameY);
+        int spielX = konvertiereZuSpielKoordinate(xPosition);
+        int spielY = konvertiereZuSpielKoordinate(yPosition);
+        System.out.println("Position von " + draggableObject + "- X: " + spielX + ", Y: " + spielY);
     }
 
-    private boolean isCellOccupied(double x, double y, Pane currentStone) {
-        // Größe jedes Feldes plus Dicke der Linien
-        int sizeWithLines = 50 + 1;
-
-        // Berechne die Mitte der nächsten Zelle
-        double newX = Math.round(x / sizeWithLines) * sizeWithLines;
-        double newY = Math.round(y / sizeWithLines) * sizeWithLines;
+    private boolean istZelleBesetzt(double x, double y, Pane currentStone) {
+        int größeMitLinien = 50 + 1;
+        double newX = Math.round(x / größeMitLinien) * größeMitLinien;
+        double newY = Math.round(y / größeMitLinien) * größeMitLinien;
 
         for (Pane draggableObject : draggableObjects) {
             if (draggableObject != currentStone) {
                 double objX = draggableObject.getLayoutX();
                 double objY = draggableObject.getLayoutY();
+                double otherX = Math.round(objX / größeMitLinien) * größeMitLinien;
+                double otherY = Math.round(objY / größeMitLinien) * größeMitLinien;
 
-                // Berechne die Mitte des anderen Steins
-                double otherX = Math.round(objX / sizeWithLines) * sizeWithLines;
-                double otherY = Math.round(objY / sizeWithLines) * sizeWithLines;
-
-                // Überprüfe, ob sich die Mittelpunkte der Steine auf demselben Feld befinden
                 if (newX == otherX && newY == otherY) {
                     return true;
                 }
@@ -99,14 +77,12 @@ public class SpielfeldController {
         return false;
     }
 
-    private void resetStonePosition(Pane draggableObject, double originalX, double originalY) {
+    private void setzeSteinPositionZurück(Pane draggableObject, double originalX, double originalY) {
         draggableObject.setLayoutX(originalX);
         draggableObject.setLayoutY(originalY);
     }
 
-
     private void setupDraggableObjects() {
-        // Fügen Sie Ihre draggable Objekte zur Liste hinzu
         draggableObjects.add(stein1);
         draggableObjects.add(stein2);
         draggableObjects.add(stein3);
@@ -115,7 +91,6 @@ public class SpielfeldController {
         draggableObjects.add(stein6);
         draggableObjects.add(stein7);
 
-        // Wenden Sie die Methode für jedes Objekt in der Liste an
         for (Pane draggableObject : draggableObjects) {
             setupDraggableObject(draggableObject);
         }
@@ -131,8 +106,7 @@ public class SpielfeldController {
             double newX = event.getSceneX() - xOffset;
             double newY = event.getSceneY() - yOffset;
 
-            // Überprüfe, ob sich der Spielstein innerhalb der zulässigen Bereiche befindet
-            if (isWithinBounds(newX, newY) && !isCellOccupied(newX, newY, draggableObject)) {
+            if (istInnerhalbGrenzen(newX, newY) && !istZelleBesetzt(newX, newY, draggableObject)) {
                 draggableObject.setLayoutX(newX);
                 draggableObject.setLayoutY(newY);
             }
@@ -140,7 +114,6 @@ public class SpielfeldController {
 
         draggableObject.setOnMouseClicked(mouseClickEvent -> {
             if (mouseClickEvent.getButton() == MouseButton.SECONDARY) {
-                // Ändere die Schriftfarbe der Labels im stein1 Pane auf Blau
                 if (draggableObject.getChildren().size() >= 2 &&
                         draggableObject.getChildren().get(1) instanceof Label &&
                         draggableObject.getChildren().get(2) instanceof Label) {
@@ -148,82 +121,59 @@ public class SpielfeldController {
                     Label letterLabel = (Label) draggableObject.getChildren().get(1);
                     Label numberLabel = (Label) draggableObject.getChildren().get(2);
 
-                    // Überprüfe, ob die Schriftfarbe bereits blau ist
                     if (letterLabel.getTextFill() != Color.BLUE) {
                         letterLabel.setTextFill(Color.BLUE);
                         numberLabel.setTextFill(Color.BLUE);
                     } else {
-                        // Setze die Schriftfarbe auf die ursprüngliche Farbe zurück
-                        letterLabel.setTextFill(Color.BLACK);  // Hier die ursprüngliche Farbe für den Buchstaben
-                        numberLabel.setTextFill(Color.BLACK);  // Hier die ursprüngliche Farbe für die Zahl
+                        letterLabel.setTextFill(Color.BLACK);
+                        numberLabel.setTextFill(Color.BLACK);
                     }
                 }
             }
         });
 
         draggableObject.setOnMouseReleased(event -> {
-            int sizeWithLines = 50 + 1;
+            int größeMitLinien = 50 + 1;
+            double newX = Math.round((draggableObject.getLayoutX()) / größeMitLinien) * größeMitLinien;
+            double newY = Math.round((draggableObject.getLayoutY()) / größeMitLinien) * größeMitLinien;
 
-            // Berechne die Mitte der nächsten Zelle
-            double newX = Math.round((draggableObject.getLayoutX()) / sizeWithLines) * sizeWithLines;
-            double newY = Math.round((draggableObject.getLayoutY()) / sizeWithLines) * sizeWithLines;
-
-            // Überprüfe, ob sich der Spielstein innerhalb der zulässigen Bereiche befindet
-            if (isWithinBounds(newX, newY)) {
-                // Überprüfe, ob die beabsichtigte Position frei ist
-                if (!isCellOccupied(newX, newY, draggableObject)) {
-                    // Aktualisiere die Position des Objekts, um es in die Mitte der nächsten Zelle zu setzen
-                    draggableObject.setLayoutX(newX + 2); // +1 für die Linienverschiebung
-                    draggableObject.setLayoutY(newY - 18); // +1 für die Linienverschiebung
-
-                    printGameCoordinates(draggableObject);
+            if (istInnerhalbGrenzen(newX, newY)) {
+                if (!istZelleBesetzt(newX, newY, draggableObject)) {
+                    draggableObject.setLayoutX(newX + 2);
+                    draggableObject.setLayoutY(newY - 18);
+                    druckeSpielKoordinaten(draggableObject);
                 } else {
-                    // Setze den Stein zurück auf die ursprüngliche Position, wenn die Position besetzt ist
-                    resetStonePosition(draggableObject, event.getSceneX() - xOffset, event.getSceneY() - yOffset);
+                    setzeSteinPositionZurück(draggableObject, event.getSceneX() - xOffset, event.getSceneY() - yOffset);
                 }
             } else {
-                // Setze den Stein zurück auf die ursprüngliche Position, wenn die Position außerhalb der zulässigen Bereiche liegt
-                resetStonePosition(draggableObject, event.getSceneX() - xOffset, event.getSceneY() - yOffset);
+                setzeSteinPositionZurück(draggableObject, event.getSceneX() - xOffset, event.getSceneY() - yOffset);
             }
         });
     }
 
-    private boolean isWithinBounds(double x, double y) {
-        int gameX = convertToGameCoordinate(x);
-        int gameY = convertToGameCoordinate(y);
-
-        // Überprüfe, ob sich die Position innerhalb der zulässigen Bereiche befindet
-        return (gameX >= 1 && gameX <= 15 && gameY >= 1 && gameY <= 15) || (gameX >= 5 && gameX <= 11 && gameY == 17 || (gameX >= 5 && gameX <= 11 && gameY == 16));
+    private boolean istInnerhalbGrenzen(double x, double y) {
+        int spielX = konvertiereZuSpielKoordinate(x);
+        int spielY = konvertiereZuSpielKoordinate(y);
+        return (spielX >= 1 && spielX <= 15 && spielY >= 1 && spielY <= 15) ||
+                (spielX >= 5 && spielX <= 11 && spielY == 17) ||
+                (spielX >= 5 && spielX <= 11 && spielY == 16);
     }
 
     public void auswertenButton() {
-        // Ändere die Textfarbe des Buttons kurzzeitig
         auswertenButton.setStyle("-fx-text-fill: green; -fx-background-color: transparent;");
-
-        // ...
-
-        // Verzögere die Farbänderung für einen kurzen Moment
-        PauseTransition pause = new PauseTransition(Duration.millis(200)); // Anpassen Sie die Dauer nach Bedarf
+        PauseTransition pause = new PauseTransition(Duration.millis(200));
         pause.setOnFinished(event -> {
-            // Setze die Textfarbe des Buttons zurück
             auswertenButton.setStyle("-fx-text-fill: -fx-text-base-color; -fx-background-color: transparent;");
         });
         pause.play();
     }
 
     public void neuButton() {
-        // Ändere die Farbe des Buttons kurzzeitig
         neuButton.setStyle("-fx-text-fill: green; -fx-background-color: transparent;");
-
-        // Führe hier den gewünschten Code für die Auswertung durch
-
-        // Verzögere die Farbänderung für einen kurzen Moment
-        PauseTransition pause = new PauseTransition(Duration.millis(200)); // Anpassen Sie die Dauer nach Bedarf
+        PauseTransition pause = new PauseTransition(Duration.millis(200));
         pause.setOnFinished(event -> {
-            // Setze die Farbe des Buttons zurück
             neuButton.setStyle("-fx-text-fill: -fx-text-base-color; -fx-background-color: transparent;");
         });
         pause.play();
-
     }
 }
