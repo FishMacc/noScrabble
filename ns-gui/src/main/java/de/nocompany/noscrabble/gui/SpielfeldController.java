@@ -3,13 +3,17 @@ package de.nocompany.noscrabble.gui;
 import de.nocompany.noscrabble.service.serviceSpiel.ServiceSpielImpl;
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseButton;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +27,8 @@ public class SpielfeldController {
     private Button neuButton;
     private double xOffset = 0;
     private double yOffset = 0;
+
+    private BorderPane root;
 
 
 
@@ -186,6 +192,23 @@ public class SpielfeldController {
         pause.play();
     }
 
-    public void setListe(List<String> spielerListe) {
+    public void spielEnde(String gewinner) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/spielEnde.fxml"));
+            Parent endeContent = fxmlLoader.load();
+            SpielEndeController controller = fxmlLoader.getController();
+            controller.setlSpielerGewinner(gewinner);
+            root.setCenter(endeContent);
+        } catch (
+                IOException e) {
+            e.printStackTrace();
+        }
     }
+
+
+    public void setRoot(BorderPane root) {
+        this.root = root;
+    }
+}
+
 }

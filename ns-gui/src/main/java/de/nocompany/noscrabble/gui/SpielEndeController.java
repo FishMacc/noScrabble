@@ -12,7 +12,8 @@ public class SpielEndeController {
     private Label lGlueckwunsch2;
 
 
-    public void setlSpielerGewinner(Label lSpielerGewinner) {
-        this.lSpielerGewinner = lSpielerGewinner;
+    public void setlSpielerGewinner(String gewinner) {
+
+        lSpielerGewinner.setText(gewinner);
     }
 }

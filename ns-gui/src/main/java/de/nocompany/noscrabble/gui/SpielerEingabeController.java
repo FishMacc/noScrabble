@@ -99,6 +99,7 @@ public class SpielerEingabeController {
             Parent dummyContent = fxmlLoader.load();
             SpielfeldController controller = fxmlLoader.getController();
             controller.erzeugeNeuesSpiel(spielerListe);
+            controller.setRoot(root);
             root.setCenter(dummyContent);
         } catch (IOException e) {
             e.printStackTrace();
