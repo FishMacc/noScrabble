@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Leaderboard {
-    List<Spieler> spielerListe = new ArrayList<>();
+    public List<Spieler> spielerListe = new ArrayList<>();
 
     public Leaderboard(List<Spieler> spielerListe) {
         this.spielerListe = spielerListe;

@@ -69,6 +69,11 @@ public class Punktemultiplikator {
             int x = horizontal ? startx + i : startx;
             int y = horizontal ? starty : starty + i;
 
+            // Überprüfen, ob x und y innerhalb der Grenzen des Arrays liegen
+            if (x < 0 || x >= punkteMultiplikatoren[0].length || y < 0 || y >= punkteMultiplikatoren.length) {
+                continue;  // Überspringe diesen Durchlauf, wenn x oder y außerhalb der Grenzen liegen
+            }
+
             char letter = wort.charAt(i);
             int buchstabenPunkte = calcLetterPunkte(letter);
 
@@ -85,4 +90,5 @@ public class Punktemultiplikator {
         gesamtPunkte *= wortMultiplikator;
         return gesamtPunkte;
     }
+
 }
