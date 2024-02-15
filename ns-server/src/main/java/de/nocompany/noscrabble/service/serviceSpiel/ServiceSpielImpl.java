@@ -46,7 +46,6 @@ public class ServiceSpielImpl implements ServiceSpielInterface {
                 spielfeld[i][j] = ' '; // Füllen jedes Elements mit einem Leerzeichen
             }
         }
-
     }
 
 
