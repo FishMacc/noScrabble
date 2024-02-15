@@ -46,6 +46,7 @@ public class ServiceSpielImpl implements ServiceSpielInterface {
     public boolean pruefeWoerter(Character[][] spielbrett) {
         if (serviceWoerter.calcNewWordPoints(serviceSpielbrett.getSpielbrett(), spielbrett)) {
             aktiverSpieler.updatePunkte(serviceWoerter.getPunkte());
+            serviceSpielbrett.saveSpielbrett(spielbrett);
             return true;
         }
         return false;
