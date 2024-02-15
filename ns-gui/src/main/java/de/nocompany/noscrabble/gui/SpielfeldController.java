@@ -11,7 +11,7 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DragDropDemoController {
+public class SpielfeldController {
 
     @FXML
     private Pane drawingPane;
