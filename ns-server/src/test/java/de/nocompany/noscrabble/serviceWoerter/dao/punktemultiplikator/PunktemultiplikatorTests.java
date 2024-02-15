@@ -25,7 +25,7 @@ class PunktemultiplikatorTest {
 
     @Test
     void testCalcWortPunkte() {
-        assertEquals(33, punktemultiplikator.calcWortPunkte("Für", 0, 0, true));
+        assertEquals(33, punktemultiplikator.calcWortPunkte("F\u00DCr", 0, 0, true));
         assertEquals(22, punktemultiplikator.calcWortPunkte("Amnesia", 1, 1, true));
         assertEquals(10, punktemultiplikator.calcWortPunkte("CAT", 3, 0, true));
         assertEquals(66, punktemultiplikator.calcWortPunkte("Katzenbaum", 7, 0, false));
