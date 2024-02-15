@@ -97,10 +97,10 @@
                                                 <Font name="Comic Sans MS Bold" size="30.0"/>
                                             </font>
                                             <effect>
-                                                <DropShadow height="22.48" radius="8.8975" spread="0.48" width="15.11">
+                                                <DropShadow height="18.8" radius="7.977499999999999" spread="0.48"
+                                                            width="15.11">
                                                     <color>
-                                                        <Color red="0.03634868562221527" green="0.2368421107530594"
-                                                               blue="0.009868420660495758"/>
+                                                        <Color opacity="0.0"/>
                                                     </color>
                                                 </DropShadow>
                                             </effect>

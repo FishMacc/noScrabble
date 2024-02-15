@@ -7,7 +7,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -16,7 +15,8 @@ import java.util.List;
 
 public class SpielerEingabeController {
 
-    public Button bSpielStarten;
+    @FXML
+    private Button bSpielStarten;
     @FXML
     private Label lVorhandeneSpieler;
     @FXML
@@ -36,8 +36,9 @@ public class SpielerEingabeController {
     @FXML
     private List<String> spielerListe = new ArrayList<>();
 
+    @FXML
     private int spielerZaehler = 0;
-    private BorderPane root;
+
 
     @FXML
     void initialize() {
@@ -48,14 +49,22 @@ public class SpielerEingabeController {
 
 
     public void doAddSpieler() {
-        if (spielerZaehler == 0) {
-            lSpieler1.setText(tfSpielername.getText());
-        } else if (spielerZaehler == 1) {
-            lSpieler2.setText(tfSpielername.getText());
-        } else if (spielerZaehler == 2) {
-            lSpieler3.setText(tfSpielername.getText());
-        } else if (spielerZaehler == 3) {
-            lSpieler4.setText(tfSpielername.getText());
+        switch (spielerZaehler) {
+            case 0:
+                lSpieler1.setText(tfSpielername.getText());
+                break;
+            case 1:
+                lSpieler2.setText(tfSpielername.getText());
+                break;
+            case 2:
+                lSpieler3.setText(tfSpielername.getText());
+                break;
+            case 3:
+                lSpieler4.setText(tfSpielername.getText());
+                break;
+            default:
+                System.out.println("Bitte geben Sie einen gültigen Spielernamen an");
+                break;
         }
         spielerZaehler++;
 
