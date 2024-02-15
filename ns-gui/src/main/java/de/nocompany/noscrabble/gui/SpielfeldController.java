@@ -1,5 +1,6 @@
 package de.nocompany.noscrabble.gui;
 
+import de.nocompany.noscrabble.service.serviceSpiel.ServiceSpielImpl;
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -47,7 +48,7 @@ public class SpielfeldController {
     //final SpielService = new ServiceSpielImpl();
 
     public void erzeugeNeuesSpiel(List<String> spielerListe) {
-        //SpielService.neuesSpiel(spielerListe);
+        System.out.println("Empfange Spieler: "+spielerListe);
 
     }
     private int konvertiereZuSpielKoordinate(double pixelKoordinate) {
@@ -183,5 +184,8 @@ public class SpielfeldController {
             neuButton.setStyle("-fx-text-fill: -fx-text-base-color; -fx-background-color: transparent;");
         });
         pause.play();
+    }
+
+    public void setListe(List<String> spielerListe) {
     }
 }

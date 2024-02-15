@@ -39,6 +39,8 @@ public class StarterApp extends Application {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/spielerEingabe.fxml"));
             Parent eingabeContent = fxmlLoader.load();
+            SpielerEingabeController controller = fxmlLoader.getController();
+            controller.setRoot(root);
             //Stage stage = new Stage();
             root.setCenter(eingabeContent);
             //stage.setTitle("noScrabble");

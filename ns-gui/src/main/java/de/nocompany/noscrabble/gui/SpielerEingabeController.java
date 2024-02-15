@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -38,6 +39,7 @@ public class SpielerEingabeController {
 
     @FXML
     private int spielerZaehler = 0;
+    private BorderPane root;
 
 
     @FXML
@@ -93,17 +95,18 @@ public class SpielerEingabeController {
         //todo aus der spielfeldController ein neues spiel erstellen
         //Spiel = new neuesSpiel(spielerListe);
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/Dummy.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/Spielfeld.fxml"));
             Parent dummyContent = fxmlLoader.load();
-            DummyController controller = fxmlLoader.getController();
-            controller.getListe(spielerListe);
-            Stage stage = new Stage();
-            stage.setScene(new Scene(dummyContent));
-            stage.show();
+            SpielfeldController controller = fxmlLoader.getController();
+            controller.erzeugeNeuesSpiel(spielerListe);
+            root.setCenter(dummyContent);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
 
+    public void setRoot(BorderPane root) {
+        this.root = root;
+    }
 }
