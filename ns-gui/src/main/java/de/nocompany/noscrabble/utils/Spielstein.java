@@ -13,5 +13,26 @@ public class Spielstein {
         this.buchstabe = buchstabe;
     }
 
-    // Getter und Setter hier
+    // Getter für Pane
+    public Pane getPane() {
+        return pane;
+    }
+
+    // Getter und Setter für freeze
+    public boolean isFreeze() {
+        return freeze;
+    }
+
+    public void setFreeze(boolean freeze) {
+        this.freeze = freeze;
+    }
+
+    // Getter und Setter für buchstabe
+    public char getBuchstabe() {
+        return buchstabe;
+    }
+
+    public void setBuchstabe(char buchstabe) {
+        this.buchstabe = buchstabe;
+    }
 }

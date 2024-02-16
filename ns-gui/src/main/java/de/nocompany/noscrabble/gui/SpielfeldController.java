@@ -21,9 +21,6 @@ import javafx.scene.image.ImageView;
 import java.io.IOException;
 
 
-
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -131,25 +128,27 @@ public class SpielfeldController {
         System.out.println("Position von " + draggableObject + "- X: " + spielX + ", Y: " + spielY);
     }
 
-    private boolean istZelleBesetzt(double x, double y, Pane currentStone) {
+    private boolean istZelleBesetzt(double x, double y, Pane currentStonePane) {
         int größeMitLinien = 50 + 1;
         double newX = Math.round(x / größeMitLinien) * größeMitLinien;
         double newY = Math.round(y / größeMitLinien) * größeMitLinien;
 
-        for (Pane draggableObject : draggableObjects) {
-            if (draggableObject != currentStone) {
-                double objX = draggableObject.getLayoutX();
-                double objY = draggableObject.getLayoutY();
+        for (Spielstein draggableObject : draggableObjects) {
+            Pane draggableObjectPane = draggableObject.getPane(); // Angenommen, Spielstein hat eine Methode getPane(), die das Pane zurückgibt
+            if (draggableObjectPane != currentStonePane) {
+                double objX = draggableObjectPane.getLayoutX();
+                double objY = draggableObjectPane.getLayoutY();
                 double otherX = Math.round(objX / größeMitLinien) * größeMitLinien;
                 double otherY = Math.round(objY / größeMitLinien) * größeMitLinien;
 
                 if (newX == otherX && newY == otherY) {
-                    return true;
+                    return false;
                 }
             }
         }
-        return false;
+        return true;
     }
+
 
     private void setzeSteinPositionZurück(Pane draggableObject, double originalX, double originalY) {
         draggableObject.setLayoutX(originalX);
@@ -168,7 +167,7 @@ public class SpielfeldController {
             double newX = event.getSceneX() - xOffset;
             double newY = event.getSceneY() - yOffset;
 
-            if (istInnerhalbGrenzen(newX, newY) && !istZelleBesetzt(newX, newY, draggableObject)) {
+            if (istInnerhalbGrenzen(newX, newY) && istZelleBesetzt(newX, newY, draggableObject)) {
                 draggableObject.setLayoutX(newX);
                 draggableObject.setLayoutY(newY);
             }
@@ -200,7 +199,7 @@ public class SpielfeldController {
             double newY = Math.round((draggableObject.getLayoutY()) / größeMitLinien) * größeMitLinien;
 
             if (istInnerhalbGrenzen(newX, newY)) {
-                if (!istZelleBesetzt(newX, newY, draggableObject)) {
+                if (istZelleBesetzt(newX, newY, draggableObject)) {
                     draggableObject.setLayoutX(newX + 2);
                     draggableObject.setLayoutY(newY - 18);
                     druckeSpielKoordinaten(draggableObject);
