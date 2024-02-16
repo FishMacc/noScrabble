@@ -199,7 +199,6 @@ public class SpielfeldController {
             });
             pause.play();
 
-
             for (int i = 0; i < steineKoordinaten.length; i++) {
                 for (int j = 0; j < steineKoordinaten[i].length; j++) {
                     steineKoordinaten[i][j] = ' ';
