@@ -61,7 +61,7 @@ public class SpielfeldController {
         Pane steinPane = new Pane();
         steinPane.setPrefSize(45.0, 45.0);
 
-        ImageView imageView = new ImageView(new Image(getClass().getResource("../img/Stein.png").toExternalForm()));
+        ImageView imageView = new ImageView(new Image(getClass().getResource("/img/Stein.png").toExternalForm()));
         imageView.setFitHeight(45.0);
         imageView.setFitWidth(45.0);
         imageView.setPickOnBounds(true);
