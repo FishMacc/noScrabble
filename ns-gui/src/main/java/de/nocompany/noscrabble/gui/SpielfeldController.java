@@ -32,7 +32,6 @@ public class SpielfeldController {
     private double yOffset = 0;
 
 
-
     @FXML
     private Pane stein1;
     @FXML
@@ -55,10 +54,11 @@ public class SpielfeldController {
 
 
     public void erzeugeNeuesSpiel(List<String> spielerListe) {
-        System.out.println("Empfange Spieler: "+spielerListe);
+        System.out.println("Empfange Spieler: " + spielerListe);
         spielService.neuesSpiel(spielerListe);
 
     }
+
     private int konvertiereZuSpielKoordinate(double pixelKoordinate) {
         int größeMitLinien = 50 + 1;
         double gerundeteKoordinate = Math.round(pixelKoordinate / größeMitLinien);
@@ -198,6 +198,7 @@ public class SpielfeldController {
                 auswertenButton.setStyle("-fx-text-fill: -fx-text-base-color; -fx-background-color: transparent;");
             });
             pause.play();
+
 
             for (int i = 0; i < steineKoordinaten.length; i++) {
                 for (int j = 0; j < steineKoordinaten[i].length; j++) {
