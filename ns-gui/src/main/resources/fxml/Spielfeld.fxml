@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
@@ -147,7 +148,7 @@
                     </image>
                 </ImageView>
                 <Button fx:id="auswertenButton" alignment="center" contentDisplay="TOP" mnemonicParsing="false"
-                        onAction="#auswertenButton" prefHeight="45.0" prefWidth="138.0"
+                        onAction="#auswerten" prefHeight="45.0" prefWidth="138.0"
                         style="-fx-background-color: transparent;" text="Auswerten">
                     <font>
                         <Font name="System Bold" size="17.0"/>
