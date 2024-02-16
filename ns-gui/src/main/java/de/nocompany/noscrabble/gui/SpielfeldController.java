@@ -24,7 +24,7 @@ public class SpielfeldController {
 
 
     private List<Pane> draggableObjects = new ArrayList<>(); // Liste der draggable Objekte
-    private char[][] steineKoordinaten = new char[15][15];
+    private Character[][] steineKoordinaten = new Character[15][15];
 
 
     private boolean auswertungAktiv = false;
@@ -220,6 +220,13 @@ public class SpielfeldController {
                     steineKoordinaten[spielY - 1][spielX - 1] = steinSymbol;
                 }
             }
+        }
+
+        if (spielService.pruefeWoerter(steineKoordinaten)) {
+            spielService.passeRunde();
+            System.out.println("Richtige Eingabe");
+        } else {
+            System.out.println("Falsche Eingabe");
         }
 
 
