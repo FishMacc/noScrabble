@@ -14,4 +14,6 @@ public interface ServiceSpielInterface {
 
     void beendeSpiel();
 
+    List<String> listeLeaderboard();
+
 }

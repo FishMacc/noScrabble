@@ -1,5 +1,7 @@
 package de.nocompany.noscrabble.gui;
 
+import de.nocompany.noscrabble.service.serviceSpiel.ServiceSpielImpl;
+import de.nocompany.noscrabble.service.serviceSpiel.ServiceSpielInterface;
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -14,6 +16,9 @@ import java.util.List;
 
 public class SpielfeldController {
 
+    private final ServiceSpielInterface spielService = new ServiceSpielImpl();
+
+
     private List<Pane> draggableObjects = new ArrayList<>(); // Liste der draggable Objekte
     private char[][] steineKoordinaten = new char[15][15];
 
@@ -25,6 +30,8 @@ public class SpielfeldController {
     private Button neuButton;
     private double xOffset = 0;
     private double yOffset = 0;
+
+
 
     @FXML
     private Pane stein1;
@@ -46,6 +53,12 @@ public class SpielfeldController {
         setupDraggableObjects();
     }
 
+
+    public void erzeugeNeuesSpiel(List<String> spielerListe) {
+        System.out.println("Empfange Spieler: "+spielerListe);
+        spielService.neuesSpiel(spielerListe);
+
+    }
     private int konvertiereZuSpielKoordinate(double pixelKoordinate) {
         int größeMitLinien = 50 + 1;
         double gerundeteKoordinate = Math.round(pixelKoordinate / größeMitLinien);
@@ -163,6 +176,8 @@ public class SpielfeldController {
                 } else {
                     setzeSteinPositionZurück(draggableObject, event.getSceneX() - xOffset, event.getSceneY() - yOffset);
                 }
+            } else {
+                setzeSteinPositionZurück(draggableObject, event.getSceneX() - xOffset, event.getSceneY() - yOffset);
             }
         });
     }
