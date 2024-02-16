@@ -54,7 +54,7 @@ public class SpielfeldController {
     }
 
     private void druckeSpielKoordinaten(Pane draggableObject) {
-        // Drucke Spielkoordinaten nur für Steine auf dem Spielfeld
+
         if (!auswertungAktiv && istAufSpielfeld(draggableObject)) {
             double xPosition = draggableObject.getLayoutX();
             double yPosition = draggableObject.getLayoutY();
@@ -65,7 +65,7 @@ public class SpielfeldController {
     }
 
     private boolean istAufSpielfeld(Pane draggableObject) {
-        // Überprüfe, ob der Stein auf dem Spielfeld liegt
+
         int spielX = konvertiereZuSpielKoordinate(draggableObject.getLayoutX());
         int spielY = konvertiereZuSpielKoordinate(draggableObject.getLayoutY());
         return (spielX >= 1 && spielX <= 15 && spielY >= 1 && spielY <= 15);
@@ -188,35 +188,33 @@ public class SpielfeldController {
 
             for (int i = 0; i < steineKoordinaten.length; i++) {
                 for (int j = 0; j < steineKoordinaten[i].length; j++) {
-                    steineKoordinaten[i][j] = ' '; // Füllen jedes Elements mit einem Leerzeichen
+                    steineKoordinaten[i][j] = ' ';
                 }
             }
 
             for (Pane draggableObject : draggableObjects) {
                 if (istAufSpielfeld(draggableObject)) {
-                    // Deine bisherige Logik bleibt unverändert
 
-                    // Speichere die Koordinaten des Steins in das char-Array
+
                     int spielX = konvertiereZuSpielKoordinate(draggableObject.getLayoutX());
                     int spielY = konvertiereZuSpielKoordinate(draggableObject.getLayoutY());
-                    char steinSymbol = getSteinSymbol(draggableObject); // Neue Methode, um das Symbol des Steins zu erhalten
-                    steineKoordinaten[spielY - 1][spielX - 1] = steinSymbol; // Beachte die Reihenfolge der Indizes
+                    char steinSymbol = getSteinSymbol(draggableObject);
+                    steineKoordinaten[spielY - 1][spielX - 1] = steinSymbol;
                 }
             }
         }
 
-        // Weitere Logik zur Auswertung hier einfügen
+
     }
 
-    // ... (weiterer Code bleibt unverändert)
-    // Neue Methode, um die gespeicherten Koordinaten zu erhalten
+
     private char getSteinSymbol(Pane draggableObject) {
-        // Annahme: Das Label mit dem Buchstaben befindet sich an Index 1 der Kinder von draggableObject
+
         if (draggableObject.getChildren().size() > 1 && draggableObject.getChildren().get(1) instanceof Label) {
             Label letterLabel = (Label) draggableObject.getChildren().get(1);
-            return letterLabel.getText().charAt(0); // Rückgabe des ersten Zeichens im Text des Labels
+            return letterLabel.getText().charAt(0);
         }
-        return ' '; // Rückgabe eines Leerzeichens, falls kein Label gefunden wurde
+        return ' ';
     }
 
     public void neuButton() {
