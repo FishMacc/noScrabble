@@ -2,6 +2,7 @@ package de.nocompany.noscrabble.gui;
 
 import de.nocompany.noscrabble.service.serviceSpiel.ServiceSpielImpl;
 import de.nocompany.noscrabble.service.serviceSpiel.ServiceSpielInterface;
+import de.nocompany.noscrabble.utils.Spielstein;
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,7 +13,15 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.TextAlignment;
 import javafx.util.Duration;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import java.io.IOException;
+
+
+
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -21,9 +30,10 @@ import java.util.List;
 public class SpielfeldController {
 
     private final ServiceSpielInterface spielService = new ServiceSpielImpl();
+    public Pane drawingPane;
 
 
-    private List<Pane> draggableObjects = new ArrayList<>(); // Liste der draggable Objekte
+    private List<Spielstein> draggableObjects = new ArrayList<>(); // Liste der draggable Objekte
 
     @FXML
     private Button auswertenButton;
@@ -35,24 +45,9 @@ public class SpielfeldController {
     private BorderPane root;
 
 
-    @FXML
-    private Pane stein1;
-    @FXML
-    private Pane stein2;
-    @FXML
-    private Pane stein3;
-    @FXML
-    private Pane stein4;
-    @FXML
-    private Pane stein5;
-    @FXML
-    private Pane stein6;
-    @FXML
-    private Pane stein7;
 
     @FXML
     private void initialize() {
-        setupDraggableObjects();
     }
 
 
@@ -61,6 +56,65 @@ public class SpielfeldController {
         spielService.neuesSpiel(spielerListe);
 
     }
+
+
+
+    public void erstelleSpielstein(char buchstabe, double xPosition, double yPosition) {
+
+        Pane steinPane = new Pane();
+        steinPane.setPrefSize(45.0, 45.0);
+
+        ImageView imageView = new ImageView(new Image(getClass().getResource("../img/Stein.png").toExternalForm()));
+        imageView.setFitHeight(45.0);
+        imageView.setFitWidth(45.0);
+        imageView.setPickOnBounds(true);
+        imageView.setPreserveRatio(true);
+
+        steinPane.setLayoutX(xPosition);
+        steinPane.setLayoutY(yPosition);
+
+        Label buchstabenLabel = new Label(String.valueOf(buchstabe));
+        buchstabenLabel.setFont(new Font("System Bold", 27.0));
+        buchstabenLabel.setLayoutX(6.0);
+        buchstabenLabel.setLayoutY(0);
+        buchstabenLabel.setPrefSize(21.0, 45.0);
+        buchstabenLabel.setTextAlignment(TextAlignment.CENTER);
+
+        Label punkteLabel = new Label("1"); // Beispielwert, anpassen nach Bedarf
+        punkteLabel.setLayoutX(31.0);
+        punkteLabel.setLayoutY(23.0);
+        punkteLabel.setPrefSize(13.0, 17.0);
+
+        steinPane.getChildren().addAll(imageView, buchstabenLabel, punkteLabel);
+
+        Spielstein spielstein = new Spielstein(steinPane, false, buchstabe);
+
+        draggableObjects.add(spielstein);
+
+        // Hier müssen Sie die Steine zum UI hinzufügen, z.B. zu einem Pane, das das Spielfeld darstellt
+        // Beispiel: root.getChildren().add(steinPane);
+        // Stellen Sie sicher, dass Sie das richtige Container-Element für Ihr Layout haben
+        drawingPane.getChildren().add(steinPane);
+        setupDraggableObject(steinPane); // Passen Sie diese Methode entsprechend an, um mit dem Spielstein-Objekt zu arbeiten
+    }
+
+
+    public void starteNeueRunde() {
+        // Hier kannst du Logik hinzufügen, um festzulegen, welche Buchstaben generiert werden sollen
+        //TODO hohle buchstabenvom aktiven spieler
+        char[] buchstaben = new char[]{'A', 'B', 'C', 'D', 'E', 'F', 'G'};// Beispielbuchstaben
+        double[] xPositionen = new double[]{308.0, 359.0, 410.0, 461.0, 512.0, 563.0, 614.0}; // Beispiel X-Positionen
+        double[] yPosition = new double[]{900.0, 900.0, 900.0, 900.0, 900.0, 900.0, 900.0}; // Y-Positionen sind gleich, da alle auf derselben Höhe
+
+        for (int i = 0; i < buchstaben.length; i++) {
+            erstelleSpielstein(buchstaben[i], xPositionen[i], yPosition[i]);
+        }
+
+        // Weitere Logik zur Einrichtung der neuen Runde
+    }
+
+
+
 
     private int konvertiereZuSpielKoordinate(double pixelKoordinate) {
         int größeMitLinien = 50 + 1;
@@ -102,19 +156,7 @@ public class SpielfeldController {
         draggableObject.setLayoutY(originalY);
     }
 
-    private void setupDraggableObjects() {
-        draggableObjects.add(stein1);
-        draggableObjects.add(stein2);
-        draggableObjects.add(stein3);
-        draggableObjects.add(stein4);
-        draggableObjects.add(stein5);
-        draggableObjects.add(stein6);
-        draggableObjects.add(stein7);
 
-        for (Pane draggableObject : draggableObjects) {
-            setupDraggableObject(draggableObject);
-        }
-    }
 
     private void setupDraggableObject(Pane draggableObject) {
         draggableObject.setOnMousePressed(event -> {
