@@ -192,8 +192,6 @@ public class SpielfeldController {
 
     public void auswerten() {
         if (!auswertungAktiv) {
-            auswertungAktiv = true;
-            auswertenButton.setDisable(true);
             auswertenButton.setStyle("-fx-text-fill: green; -fx-background-color: transparent;");
             PauseTransition pause = new PauseTransition(Duration.millis(200));
             pause.setOnFinished(event -> {
