@@ -1,5 +1,7 @@
 package de.nocompany.noscrabble.gui;
 
+import de.nocompany.noscrabble.service.serviceSpiel.ServiceSpielImpl;
+import de.nocompany.noscrabble.service.serviceSpiel.ServiceSpielInterface;
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,6 +19,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SpielfeldController {
+
+    private final ServiceSpielInterface spielService = new ServiceSpielImpl();
+
 
     private List<Pane> draggableObjects = new ArrayList<>(); // Liste der draggable Objekte
 
@@ -49,10 +54,11 @@ public class SpielfeldController {
     private void initialize() {
         setupDraggableObjects();
     }
-    //final SpielService = new ServiceSpielImpl();
+
 
     public void erzeugeNeuesSpiel(List<String> spielerListe) {
-        System.out.println("Empfange Spieler: " + spielerListe);
+        System.out.println("Empfange Spieler: "+spielerListe);
+        spielService.neuesSpiel(spielerListe);
 
     }
 
@@ -180,7 +186,7 @@ public class SpielfeldController {
             auswertenButton.setStyle("-fx-text-fill: -fx-text-base-color; -fx-background-color: transparent;");
         });
         pause.play();
-
+        //TODO spielService.pruefeWoerter()
     }
 
     public void neuButton() {
@@ -190,6 +196,8 @@ public class SpielfeldController {
             neuButton.setStyle("-fx-text-fill: -fx-text-base-color; -fx-background-color: transparent;");
         });
         pause.play();
+        //TODO spielService.ersetzeBuchstaben();
+        spielService.passeRunde();
     }
 
     public void spielEnde(String gewinner) {
