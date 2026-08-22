@@ -1,28 +1,55 @@
-# Compiled class file
+# === Java / JVM ===
 *.class
-
-# Log file
-*.log
-
-# BlueJ files
-*.ctxt
-
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
-
-# Package Files #
 *.jar
 *.war
-*.nar
 *.ear
+*.nar
 *.zip
 *.tar.gz
 *.rar
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+# === Logs ===
+*.log
 hs_err_pid*
 replay_pid*
+*.ctxt
+.mtj.tmp/
 
-.idea/
+# === Gradle ===
 .gradle/
-*/build/*
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+# === Maven ===
+target/
+
+# === IDEs ===
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+*.swp
+*.swo
+*~
+
+# === OS ===
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# === Python / Node (Cross-project hygiene) ===
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.env
+.env.local
+node_modules/
+
+# === Project-specific runtime artifacts ===
+*.db
+*.sqlite
+*.sqlite3
